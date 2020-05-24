@@ -42,6 +42,7 @@
           <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/>
         </svg>
       </div>
+      <loading-spinner />
     </div>
     <Quizzes />
   </div>
@@ -50,11 +51,13 @@
 <script>
 
 import Quizzes from './components/Quizzes.vue'
+import LoadingSpinner from './components/LoadingSpinner.vue'
 
 export default {
   name: 'App',
   components: {
     Quizzes
+    LoadingSpinner
   },
   data(){
     return {
