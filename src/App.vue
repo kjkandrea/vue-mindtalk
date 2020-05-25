@@ -13,11 +13,8 @@
           v-bind:step="step"
           v-bind:stepRange="stepRange"
         />
-        <!-- <div class="step-range-bar">
-          <div class="range" :style="{ width: rangeWidth + '%'}"></div>
-        </div> -->
         <ol v-if="!finish">
-          <li v-show="quizIndex + 1 === step" v-for="(quiz, quizIndex) in wpdata.acf.quiz_section" :key="quiz.quiz_question">
+          <li v-for="(quiz, quizIndex) in wpdata.acf.quiz_section" v-show="quizIndex + 1 === step" :key="quiz.quiz_question">
               <span class="question">
                 <span>{{quizIndex + 1}}.</span>
                 {{quiz.quiz_question}}
@@ -40,10 +37,7 @@
         />
       </template>
     </div>
-    <div v-else>
-      <loading-spinner />
-    </div>
-    <Quizzes />
+    <loading-spinner v-else />
   </div>
 </template>
 
@@ -52,21 +46,15 @@ import QuizQuestionItems from './components/quiz/QuizQuestionItems.vue'
 import StartContent from './components/quiz/StartContent.vue'
 import ResultContent from './components/quiz/ResultContent.vue'
 
-import Quizzes from './components/Quizzes.vue'
 import RangeCounter from './components/quiz/RangeCounter.vue'
 import LoadingSpinner from './components/LoadingSpinner.vue'
 
 export default {
   name: 'App',
   components: {
-    Quizzes
-    LoadingSpinner
-    StartContent
-    Quizzes,
     LoadingSpinner,
     QuizQuestionItems,
     StartContent,
-    ResultContent
     ResultContent,
     RangeCounter,
   },
