@@ -2,14 +2,12 @@
   <div id="app" class="quizzes-container"> 
     <div v-if="wpdata.id">
       <h2>{{wpdata.title.rendered}}</h2>
-      <div v-if="!start">
-        <div v-html="wpdata.content.rendered"></div>
-        <div v-if="!start">
-          <button @click="start = true" class="button-submit">시작하기</button>
-        </div>
-      </div>
-      <div v-else>
-      <start-content v-if="intro" v-on:introEnd="start" v-bind:content="wpdata.content.rendered" />
+      <start-content 
+        v-if="intro" 
+        v-on:introEnd="start" 
+        v-bind:content="wpdata.content.rendered" 
+      />
+      <template v-else>
         <div class="step-range-bar">
           <div class="range" :style="{ width: rangeWidth + '%'}"></div>
         </div>
@@ -29,21 +27,17 @@
               </ul>
           </li>
         </ol>
-        <div v-else class="result">
-          <h3>{{resultTitle}}</h3>
-          <div class="contents" v-html="resultDescription"></div>
-          <button @click="restart" class="button-submit">다시하기</button>
-          <button @click="reset" class="button-submit ghost">처음으로 돌아가기</button>
-        </div>
-      </div>
-        <result-content v-else class="result" v-on:clickRestart="restart" v-on:clickReser="reset" v-bind:title="resultTitle" v-bind:description="resultDescription" />
+        <result-content 
+          class="result"
+          v-else
+          v-on:clickRestart="restart"
+          v-on:clickReser="reset"
+          v-bind:title="resultTitle"
+          v-bind:description="resultDescription"
+        />
+      </template>
     </div>
     <div v-else>
-      <div class="loader">
-        <svg class="circular" viewBox="25 25 50 50">
-          <circle class="path" cx="50" cy="50" r="20" fill="none" stroke-width="2" stroke-miterlimit="10"/>
-        </svg>
-      </div>
       <loading-spinner />
     </div>
     <Quizzes />
