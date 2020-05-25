@@ -13,20 +13,13 @@
           v-bind:step="step"
           v-bind:stepRange="stepRange"
         />
-        <ol v-if="!finish">
-          <li v-for="(quiz, index) in wpdata.acf.quiz_section" v-show="index + 1 === step" :key="quiz.quiz_question">
-              <span class="question">
-                <span>{{index + 1}}.</span>
-                {{quiz.quiz_question}}
-              </span>
-              <quiz-question-items 
-                v-on:pickedArrayPush="pickedArrayPush"
-                v-on:nextQuestion="nextQuestion"
-                v-bind:parentIndex="index"
-                v-bind:items="quiz.quiz_question_items"
-              />
-          </li>
-        </ol>
+        <quiz-questions 
+          v-if="!finish" 
+          v-on:pickedArrayPush="pickedArrayPush"
+          v-on:nextQuestion="nextQuestion"
+          v-bind:step="step"
+          v-bind:items="wpdata.acf.quiz_section"
+        />
         <result-content 
           class="result"
           v-else
@@ -42,10 +35,11 @@
 </template>
 
 <script>
-import QuizQuestionItems from './components/quiz/QuizQuestionItems.vue'
+import EventBus from './EventBus'
+
+import QuizQuestions from './components/quiz/QuizQuestions.vue'
 import StartContent from './components/quiz/StartContent.vue'
 import ResultContent from './components/quiz/ResultContent.vue'
-
 import RangeCounter from './components/quiz/RangeCounter.vue'
 import LoadingSpinner from './components/LoadingSpinner.vue'
 
@@ -53,7 +47,7 @@ export default {
   name: 'App',
   components: {
     LoadingSpinner,
-    QuizQuestionItems,
+    QuizQuestions,
     StartContent,
     ResultContent,
     RangeCounter,
@@ -121,7 +115,7 @@ export default {
       this.step++
     },
     pickedArrayPush(v){
-      this.pickedArray.push(v);
+      this.pickedArray.push(Number(v));
     },
     start(v){
       this.intro = v;
@@ -135,6 +129,15 @@ export default {
       this.restart();
       this.start = false;
     }
+  },
+  created(){
+    EventBus.$on('nextQuestion',() => {
+        this.nextQuestion()
+    });
+
+    EventBus.$on('userPickLogging',v => {
+        this.pickedArrayPush(v)
+    })
   },
   mounted(){
     fetch(`https://mindtalk.shoplic.store/wp-json/wp/v2/quiz/1842`)
