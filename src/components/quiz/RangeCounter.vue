@@ -6,7 +6,7 @@
     
 <script>
 export default {
-  name: 'RangeCouner',
+  name: 'RangeCounter',
   props: {
     step: Number,
     stepRange: Number
