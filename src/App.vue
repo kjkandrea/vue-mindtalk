@@ -14,15 +14,15 @@
           v-bind:stepRange="stepRange"
         />
         <ol v-if="!finish">
-          <li v-for="(quiz, quizIndex) in wpdata.acf.quiz_section" v-show="quizIndex + 1 === step" :key="quiz.quiz_question">
+          <li v-for="(quiz, index) in wpdata.acf.quiz_section" v-show="index + 1 === step" :key="quiz.quiz_question">
               <span class="question">
-                <span>{{quizIndex + 1}}.</span>
+                <span>{{index + 1}}.</span>
                 {{quiz.quiz_question}}
               </span>
               <quiz-question-items 
                 v-on:pickedArrayPush="pickedArrayPush"
                 v-on:nextQuestion="nextQuestion"
-                v-bind:parentIndex="quizIndex"
+                v-bind:parentIndex="index"
                 v-bind:items="quiz.quiz_question_items"
               />
           </li>
