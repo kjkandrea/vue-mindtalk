@@ -1,6 +1,6 @@
 <template>
   <div class="quizzes-container">
-    <div v-if="wpdata.id">
+    <template v-if="wpdata.id">
       <h2>{{wpdata.title.rendered}}</h2>
       <start-content 
         v-if="intro"
@@ -29,7 +29,7 @@
           v-bind:description="resultDescription"
         />
       </template>
-    </div>
+    </template>
     <loading-spinner v-else />
   </div>
 </template>
