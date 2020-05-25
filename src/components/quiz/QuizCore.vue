@@ -63,7 +63,7 @@ export default {
     }
   },
   computed: {
-    stepRange: function() {
+    stepRange() {
       if(this.wpdata.id !== undefined){
         const questions = this.wpdata.acf.quiz_section;
         return Object.keys(questions).length;
@@ -71,20 +71,20 @@ export default {
 
       return false;
     },
-    resultArray: function() {
+    resultArray() {
       if(this.wpdata.id !== undefined){
         return this.wpdata.acf.quiz_result_section.quiz_result_items;
       }
 
       return false;
     },
-    resultTitle: function() {
+    resultTitle() {
       if(this.resultIndex !== null){
         return this.resultArray[this.resultIndex].quiz_result_title;
       }
       return false;
     },
-    resultDescription: function() {
+    resultDescription() {
       if(this.resultIndex !== null){
         return this.resultArray[this.resultIndex].quiz_result_desc;
       }
