@@ -22,14 +22,12 @@
                 <span>{{quizIndex + 1}}.</span>
                 {{quiz.quiz_question}}
               </span>
-              <ul>
-                <li v-for="(item, index) in quiz.quiz_question_items" :key="item.quiz_question_item">
-                  <button class="seletor" @click.prevent="nextQuestion(quizIndex, index)">
-                    {{item.quiz_question_item}}
-                    <!-- {{item.quiz_question_value}} -->
-                  </button>
-                </li>
-              </ul>
+              <quiz-question-items 
+                v-on:pickedArrayPush="pickedArrayPush"
+                v-on:nextQuestion="nextQuestion"
+                v-bind:parentIndex="quizIndex"
+                v-bind:items="quiz.quiz_question_items"
+              />
           </li>
         </ol>
         <result-content 
@@ -50,6 +48,7 @@
 </template>
 
 <script>
+import QuizQuestionItems from './components/quiz/QuizQuestionItems.vue'
 import StartContent from './components/quiz/StartContent.vue'
 import ResultContent from './components/quiz/ResultContent.vue'
 
@@ -65,6 +64,7 @@ export default {
     StartContent
     Quizzes,
     LoadingSpinner,
+    QuizQuestionItems,
     StartContent,
     ResultContent
     ResultContent,
@@ -73,7 +73,7 @@ export default {
   data(){
     return {
       wpdata: [], // 외부(wordpress) 데이터 바인딩
-      picked: [], // 고른 항목에 대한 '값' 배열
+      pickedArray: [], // 고른 항목에 대한 '값' 배열
       resultIndex: null, // picked에 push될 고른 항목에 대한 '값'
       step: 1, // 문제가 몇 단계인지
       intro : true, // false 시 문제 풀기 시작
@@ -110,14 +110,9 @@ export default {
     }
   },
   methods: {
-    nextQuestion(quizIndex, index){
-      const picked = this.wpdata.acf.quiz_section[quizIndex].quiz_question_items[index].quiz_question_value;
-      this.picked.push(Number(picked));
-      this.step++
-    },
     result(){
       const reducer = (accumulator, currentValue) => accumulator + currentValue;
-      const sum = this.picked.reduce(reducer);
+      const sum = this.pickedArray.reduce(reducer);
       const resultLength =  Object.keys(this.resultArray).length;
 
       console.log(sum)
@@ -133,6 +128,12 @@ export default {
       }
 
       this.finish = true;
+    },
+    nextQuestion(){
+      this.step++
+    },
+    pickedArrayPush(v){
+      this.pickedArray.push(v);
     },
     start(v){
       this.intro = v;
