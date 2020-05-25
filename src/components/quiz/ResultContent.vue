@@ -24,3 +24,19 @@ export default {
   }
 }
 </script>
+
+<style lang="scss">
+  .result {
+    h3 {
+      font-size: 20px;
+      font-weight: 500;
+      margin: 0 0 20px 0;
+      padding: 0;
+      color: #016afd;
+    }
+
+    p {
+      margin-bottom: 1em;
+    }
+  }
+</style>

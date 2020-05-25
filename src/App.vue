@@ -196,22 +196,6 @@ export default {
       padding: 0;
     }
 
-    .question {
-      display: block;
-      position: relative;
-      min-height: 46px;
-      padding-left: 1.5em;
-      margin-bottom: 20px;
-      color: #666666;
-      font-size: 18px;
-      line-height: 1.3;
-      span {
-        position: absolute;
-        top: 0;
-        left: 0;
-      }
-    }
-
     .button-submit {
       display: block;
       width: 80%;
@@ -227,20 +211,6 @@ export default {
       &.ghost {
         background-color: transparent;
         color: #016afd;
-      }
-    }
-
-    .result {
-      h3 {
-        font-size: 20px;
-        font-weight: 500;
-        margin: 0 0 20px 0;
-        padding: 0;
-        color: #016afd;
-      }
-
-      p {
-        margin-bottom: 1em;
       }
     }
   }

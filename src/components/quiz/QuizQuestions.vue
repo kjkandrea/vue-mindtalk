@@ -29,5 +29,19 @@ export default {
 </script>
 
 <style lang="scss">
-
+  .question {
+    display: block;
+    position: relative;
+    min-height: 46px;
+    padding-left: 1.5em;
+    margin-bottom: 20px;
+    color: #666666;
+    font-size: 18px;
+    line-height: 1.3;
+    span {
+      position: absolute;
+      top: 0;
+      left: 0;
+    }
+  }
 </style>
