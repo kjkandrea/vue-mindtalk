@@ -1,6 +1,6 @@
 <template>
-  <div id="app" class="quizzes-container"> 
-    <div v-if="wpdata.id">
+  <div id="app"> 
+    <div v-if="wpdata.id" class="quizzes-container">
       <h2>{{wpdata.title.rendered}}</h2>
       <start-content 
         v-if="intro" 
