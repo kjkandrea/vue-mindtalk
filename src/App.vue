@@ -64,12 +64,6 @@ export default {
   },
   data(){
     return {
-      wpdata: [],
-      picked: [],
-      step: 1,
-      resultIndex: null,
-      start : false,
-      finish: false
       wpdata: [], // 외부(wordpress) 데이터 바인딩
       picked: [], // 고른 항목에 대한 '값' 배열
       resultIndex: null, // picked에 push될 고른 항목에 대한 '값'
