@@ -8,9 +8,14 @@
         v-bind:content="wpdata.content.rendered" 
       />
       <template v-else>
-        <div class="step-range-bar">
+        <range-counter 
+          v-on:allQuestionFinish="result"
+          v-bind:step="step"
+          v-bind:stepRange="stepRange"
+        />
+        <!-- <div class="step-range-bar">
           <div class="range" :style="{ width: rangeWidth + '%'}"></div>
-        </div>
+        </div> -->
         <ol v-if="!finish">
           <li v-show="quizIndex + 1 === step" v-for="(quiz, quizIndex) in wpdata.acf.quiz_section" :key="quiz.quiz_question">
               <span class="question">
@@ -49,6 +54,7 @@ import StartContent from './components/quiz/StartContent.vue'
 import ResultContent from './components/quiz/ResultContent.vue'
 
 import Quizzes from './components/Quizzes.vue'
+import RangeCounter from './components/quiz/RangeCounter.vue'
 import LoadingSpinner from './components/LoadingSpinner.vue'
 
 export default {
@@ -61,6 +67,8 @@ export default {
     LoadingSpinner,
     StartContent,
     ResultContent
+    ResultContent,
+    RangeCounter,
   },
   data(){
     return {
@@ -81,9 +89,6 @@ export default {
 
       return false;
     },
-    rangeWidth: function() {
-      return (Number(this.step - 1)/Number(this.stepRange)) * 100
-    },
     resultArray: function() {
       if(this.wpdata.id !== undefined){
         return this.wpdata.acf.quiz_result_section.quiz_result_items;
@@ -102,13 +107,6 @@ export default {
         return this.resultArray[this.resultIndex].quiz_result_desc;
       }
       return false;
-    }
-  },
-  watch: {
-    step: function () {
-      if(this.step > this.stepRange){
-        this.result()
-      }
     }
   },
   methods: {
@@ -232,18 +230,6 @@ export default {
       padding: 10px;
       font-size: 18px;
       text-align: left;
-    }
-
-    .step-range-bar {
-      height: 3px;
-      margin-bottom: 20px;
-      background-color: #eaeaea;
-      .range {
-        width: 100%;
-        height: 100%;
-        background-color: #016afd;
-        transition: width 250ms;
-      }
     }
 
     .button-submit {
