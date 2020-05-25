@@ -9,6 +9,7 @@
 </template>
     
 <script>
+import EventBus from '../../EventBus';
 export default {
   name: 'QuizQuestionItems',
   props: {
@@ -20,12 +21,12 @@ export default {
       this.nextQuestion()
     },
     nextQuestion(){
-      this.$emit('nextQuestion')
+      EventBus.$emit('nextQuestion');
     },
     userPickLogging(index){
       const picked = this.items[index].quiz_question_value;
 
-      this.$emit('pickedArrayPush', Number(picked))
+      EventBus.$emit('userPickLogging', picked);
     }
   }
 }
