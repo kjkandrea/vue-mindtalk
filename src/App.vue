@@ -3,7 +3,7 @@
     <div v-if="wpdata.id" class="quizzes-container">
       <h2>{{wpdata.title.rendered}}</h2>
       <start-content 
-        v-if="intro" 
+        v-if="intro"
         v-on:introEnd="start" 
         v-bind:content="wpdata.content.rendered" 
       />
@@ -95,9 +95,7 @@ export default {
     result(){
       const reducer = (accumulator, currentValue) => accumulator + currentValue;
       const sum = this.pickedArray.reduce(reducer);
-      const resultLength =  Object.keys(this.resultArray).length;
-
-      console.log(sum)
+      const resultLength = Object.keys(this.resultArray).length;
 
       for(let i = 0; i < resultLength; i++){
           const endResultRange = Number(this.resultArray[i].quiz_result_end_range);
