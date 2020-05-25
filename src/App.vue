@@ -9,6 +9,7 @@
         </div>
       </div>
       <div v-else>
+      <start-content v-if="intro" v-on:introEnd="start" v-bind:start-content="wpdata.content.rendered" />
         <div class="step-range-bar">
           <div class="range" :style="{ width: rangeWidth + '%'}"></div>
         </div>
@@ -49,6 +50,7 @@
 </template>
 
 <script>
+import StartContent from './components/quiz/StartContent.vue'
 
 import Quizzes from './components/Quizzes.vue'
 import LoadingSpinner from './components/LoadingSpinner.vue'
@@ -58,6 +60,7 @@ export default {
   components: {
     Quizzes
     LoadingSpinner
+    StartContent
   },
   data(){
     return {
@@ -134,6 +137,9 @@ export default {
       }
 
       this.finish = true;
+    },
+    start(v){
+      this.intro = v;
     },
     restart(){
       this.picked = [];
