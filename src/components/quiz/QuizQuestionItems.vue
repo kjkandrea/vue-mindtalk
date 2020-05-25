@@ -1,6 +1,6 @@
 <template>
   <ul>
-    <li v-for="(item, index) in items" :key="item.quiz_question_item">
+    <li class="question-item" v-for="(item, index) in items" :key="item.quiz_question_item">
       <button class="seletor" @click.prevent="clickQuestionItem(index)">
         {{item.quiz_question_item}}
       </button>
@@ -32,16 +32,22 @@ export default {
 </script>
 
 <style lang="scss">
-  .question {
+  .question-item {
     .seletor {
       display: block;
       width: 100%;
+      background-color: #fff;
       color: #999999;
       border: 1px solid #dedede;
       margin-bottom: 10px;
       padding: 10px;
       font-size: 18px;
       text-align: left;
+
+      &:hover, &:focus, &:active {
+        color: #016afd;
+        border-color: #016afd;
+      }
     }
   }
 </style>

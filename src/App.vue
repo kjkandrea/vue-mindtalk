@@ -146,6 +146,7 @@ export default {
 
 <style lang="scss">
   body {
+    margin: 0;
     background-color: #ebecee;
     button {
       -webkit-appearance: none;
@@ -153,7 +154,7 @@ export default {
       margin: 0;
       padding: 0;
       border: 0 none;
-      background-color-color: transparent;
+      background-color: transparent;
       cursor: pointer;
     }
 
@@ -208,17 +209,6 @@ export default {
         top: 0;
         left: 0;
       }
-    }
-
-    .seletor {
-      display: block;
-      width: 100%;
-      color: #999999;
-      border: 1px solid #dedede;
-      margin-bottom: 10px;
-      padding: 10px;
-      font-size: 18px;
-      text-align: left;
     }
 
     .button-submit {
