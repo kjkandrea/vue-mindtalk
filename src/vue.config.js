@@ -1,7 +1,7 @@
 module.exports = {
 
   devServer: {
-    proxy: 'https://wireframe.kr/',
+    proxy: 'https://mindtalk.shoplic.store/',
   }
 
 }

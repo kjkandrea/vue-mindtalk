@@ -137,7 +137,7 @@ export default {
     }
   },
   mounted(){
-    fetch(`https://wireframe.kr/wp-json/wp/v2/quiz/1842`)
+    fetch(`https://mindtalk.shoplic.store/wp-json/wp/v2/quiz/1842`)
       .then((r) => r.json())
       .then((res) => this.wpdata = res);
   }
