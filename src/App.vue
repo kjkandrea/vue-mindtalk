@@ -9,7 +9,7 @@
         </div>
       </div>
       <div v-else>
-      <start-content v-if="intro" v-on:introEnd="start" v-bind:start-content="wpdata.content.rendered" />
+      <start-content v-if="intro" v-on:introEnd="start" v-bind:content="wpdata.content.rendered" />
         <div class="step-range-bar">
           <div class="range" :style="{ width: rangeWidth + '%'}"></div>
         </div>

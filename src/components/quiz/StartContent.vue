@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-html="startContent"></div>
+    <div v-html="content"></div>
     <button @click="introEnd" class="button-submit">시작하기</button>
   </div>
 </template>
@@ -9,7 +9,7 @@
 export default {
   name: 'StartContent',
   props: {
-    startContent: String
+    content: String
   },
   methods: {
     introEnd(){
