@@ -36,6 +36,7 @@
           <button @click="reset" class="button-submit ghost">처음으로 돌아가기</button>
         </div>
       </div>
+        <result-content v-else class="result" v-on:clickRestart="restart" v-on:clickReser="reset" v-bind:title="resultTitle" v-bind:description="resultDescription" />
     </div>
     <div v-else>
       <div class="loader">
@@ -51,6 +52,7 @@
 
 <script>
 import StartContent from './components/quiz/StartContent.vue'
+import ResultContent from './components/quiz/ResultContent.vue'
 
 import Quizzes from './components/Quizzes.vue'
 import LoadingSpinner from './components/LoadingSpinner.vue'
@@ -61,6 +63,10 @@ export default {
     Quizzes
     LoadingSpinner
     StartContent
+    Quizzes,
+    LoadingSpinner,
+    StartContent,
+    ResultContent
   },
   data(){
     return {
@@ -75,8 +81,6 @@ export default {
   computed: {
     stepRange: function() {
       if(this.wpdata.id !== undefined){
-        console.log(this.wpdata)
-
         const questions = this.wpdata.acf.quiz_section;
         return Object.keys(questions).length;
       }
