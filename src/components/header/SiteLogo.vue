@@ -42,3 +42,14 @@ export default {
   }
 }
 </script>
+
+<style lang="scss" scoped>
+  .logo {
+    width: 118px; 
+    img {
+      max-width: 100%;
+      height: auto;
+      margin: 0;
+    }
+  }
+</style>
