@@ -49,7 +49,7 @@ export default {
   .spotlight-banner{
     display: block;
     overflow: hidden;
-    margin: 20px -5px;
+    margin: 5px -5px 40px;
 
     * {
       box-sizing: border-box;
