@@ -4,10 +4,17 @@
       <div class="container">
         <site-logo />
         <nav>
-          <router-link to="/intro"><h1>intro</h1></router-link>
-          <a class="coffee" href="https://www.buymeacoffee.com/jkkim" target="_blank">
-            <img src="https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg" alt="Buy Me A Coffee" >
-          </a>
+          <ul if="primaryMenu">
+            <li v-for="item in primaryMenu" :key="item.ID">
+              <!-- :href="'/quiz/'+item.id" -->
+              <router-link :to="item.object+'/'+item.object_id">{{item.title}}</router-link>
+            </li>
+            <li>
+              <a class="coffee" href="https://www.buymeacoffee.com/jkkim" target="_blank">
+                <img src="https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg" alt="Buy Me A Coffee" >
+              </a>
+            </li>
+          </ul>
         </nav>
       </div>
     </header>
@@ -25,6 +32,16 @@ export default {
   name: 'App',
   components: {
     SiteLogo,
+  },
+  data() {
+    return {
+      primaryMenu: []
+    }
+  },
+  mounted(){
+    fetch(`https://mindtalk.shoplic.store/wp-json/menus/v1/menus/primary-menu`)
+      .then((r) => r.json())
+      .then((res) => this.primaryMenu = res.items);
   }
 }
 </script>
@@ -64,11 +81,11 @@ export default {
   }
 
   html, body {
-    fons-size: 16px;
+    font-size: 16px;
   }
 
   .container {
-    width: 100%;
+    overflow-x: hidden;
     max-width: 1030px;
     margin: 0 auto;
   }
@@ -76,11 +93,39 @@ export default {
   header {
     background-color: #fff;
     > .container {
+      box-sizing: border-box;
       min-height: 60px;
       display: flex;
       align-items: center;
+      justify-content: space-between;
       @media (max-width: 1040px) {
-        margin: 0 1rem;
+        padding: 0 0.5rem;
+      }
+    }
+
+    nav {
+      ul {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+
+        li{
+          a {
+            color: #1b2733;
+            text-decoration: none;
+            font-size: 1.125rem;
+            font-weight: 500;
+          }
+
+          a:not(.coffee){
+            display: block;
+            padding: 0.25rem;
+          }
+        }
+
+        li:nth-child(n + 2){
+          margin-left: 1rem;
+        }
       }
     }
 
