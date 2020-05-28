@@ -76,7 +76,7 @@ export default {
     },
     resultArray: function() {
       if(this.wpdata.id !== undefined){
-        return this.wpdata.acf.quiz_result_section.quiz_result_items;
+        return this.wpdata.acf.quiz_result_score.quiz_result_items;
       }
 
       return false;
