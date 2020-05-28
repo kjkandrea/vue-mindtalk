@@ -38,7 +38,7 @@ export default {
     },
   },
   mounted(){
-    fetch(`https://mindtalk.shoplic.store/wp-json/theme_API/v1/get_theme_logo`)
+    fetch(`${window.projectURL}/wp-json/theme_API/v1/get_theme_logo`)
       .then((r) => r.json())
       .then((res) => this.wpdata = res);
   }
