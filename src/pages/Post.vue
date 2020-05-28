@@ -1,31 +1,27 @@
 <template>
   <div class="container">
-      {{hello}}
-      {{current}}
-      <quiz-core 
-        v-bind:id="current"
-      />
+      {{wpdata}}
   </div>
 </template> 
     
 <script>
 
-import QuizCore from '../components/quiz/QuizCore';
-
 export default {
   name: 'Post',
-  components: {
-    QuizCore
-  },
   data() {
     return {
-      hello : 'Hello, Fuckers. Im Post Quiz'
+      wpdata: []
     }
   },
   computed: {
     current: function() {
       return this.$route.params.id
     }
+  },
+  mounted(){
+    fetch(`${window.projectURL}/wp-json/wp/v2/posts/${this.current}`)
+      .then((r) => r.json())
+      .then((res) => this.wpdata = res);
   }
 }
 </script>
