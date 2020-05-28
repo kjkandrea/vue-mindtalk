@@ -1,6 +1,8 @@
 <template>
   <div class="logo">
-    <img :src="logoUrl" :width="logoWidth" :height="logoHeight">
+    <a href="/">
+      <img :src="logoUrl" :width="logoWidth" :height="logoHeight">
+    </a>
   </div>
 </template>
     

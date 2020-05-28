@@ -5,10 +5,10 @@
 </template> 
     
 <script>
-import SpotlightBanner from './banner/SpotlightBanner'
+import SpotlightBanner from '../components/banner/SpotlightBanner'
 
 export default {
-  name: 'HeaderCore',
+  name: 'FrontPage',
   components: {
     SpotlightBanner
   }

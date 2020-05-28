@@ -6,7 +6,7 @@
         v-for="(item) in wpdata" 
         :key="item.id"
       >
-        <a :href="'/'+item.id">
+        <a :href="'/quiz/'+item.id">
           <h2>{{item.title.rendered}}</h2>
         </a>
         

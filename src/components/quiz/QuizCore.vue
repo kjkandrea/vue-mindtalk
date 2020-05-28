@@ -52,6 +52,9 @@ export default {
     ResultContent,
     RangeCounter,
   },
+  props: {
+    id : Number && String
+  },
   data(){
     return {
       wpdata: [], // 외부(wordpress) 데이터 바인딩
@@ -138,7 +141,7 @@ export default {
     })
   },
   mounted(){
-    fetch(`https://mindtalk.shoplic.store/wp-json/wp/v2/quiz/1842`)
+    fetch(`https://mindtalk.shoplic.store/wp-json/wp/v2/quiz/${this.id}`)
       .then((r) => r.json())
       .then((res) => this.wpdata = res);
   }

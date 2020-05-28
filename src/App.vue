@@ -1,20 +1,27 @@
 <template>
   <div id="app">
-    <header-core />
-    <front-page />
+    <header>
+      <div class="container">
+        <site-logo />
+        <nav>
+          <router-link to="/intro"><h1>intro</h1></router-link>
+        </nav>
+      </div>
+    </header>
+    <router-view></router-view>
   </div>
 </template>
 
 <script>
 
-import HeaderCore from './components/header/HeaderCore'
-import FrontPage from './components/FrontPage'
+import router from './routes'
+import SiteLogo from './components/header/SiteLogo'
 
 export default {
+  router,
   name: 'App',
   components: {
-    HeaderCore,
-    FrontPage,
+    SiteLogo,
   }
 }
 </script>
@@ -61,5 +68,23 @@ export default {
     width: 100%;
     max-width: 1030px;
     margin: 0 auto;
+  }
+
+  header {
+    background-color: #fff;
+    > .container {
+      min-height: 60px;
+      display: flex;
+      align-items: center;
+      @media (max-width: 1040px) {
+        margin: 0 1rem;
+      }
+    }
+
+      img {
+        width: 1.85rem;
+        margin: 0;
+      }
+    }
   }
 </style>
