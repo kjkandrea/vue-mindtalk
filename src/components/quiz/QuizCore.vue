@@ -146,40 +146,9 @@ export default {
 </script>
 
 <style lang="scss">
-  body {
-    margin: 0;
-    background-color: #ebecee;
-    button {
-      -webkit-appearance: none;
-      outline: 0;
-      margin: 0;
-      padding: 0;
-      border: 0 none;
-      background-color: transparent;
-      cursor: pointer;
-    }
-
-    p {
-      margin: 0;
-    }
-
-    ol, ul, li {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-    }
-
-    img {
-      display: block;
-      max-width: 100%;
-      height: auto;
-      border: 0;
-      margin: 0 auto 1em;
-      padding: 0;
-    }
-  }
-
   .quizzes-container {
+    overflow: hidden;
+    box-sizing: border-box;
     width: 100%;
     max-width: 460px;
     margin: 0 auto;
