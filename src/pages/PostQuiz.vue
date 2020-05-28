@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-      {{hello}}
       {{current}}
       <quiz-core 
         v-bind:id="current"
@@ -16,11 +15,6 @@ export default {
   name: 'Post',
   components: {
     QuizCore
-  },
-  data() {
-    return {
-      hello : 'Hello, Fuckers. Im Post Quiz'
-    }
   },
   computed: {
     current: function() {
