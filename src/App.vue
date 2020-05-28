@@ -5,6 +5,9 @@
         <site-logo />
         <nav>
           <router-link to="/intro"><h1>intro</h1></router-link>
+          <a class="coffee" href="https://www.buymeacoffee.com/jkkim" target="_blank">
+            <img src="https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg" alt="Buy Me A Coffee" >
+          </a>
         </nav>
       </div>
     </header>
@@ -80,6 +83,19 @@ export default {
         margin: 0 1rem;
       }
     }
+
+    .coffee {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 2.5rem;
+      height: 2.5rem;
+      background-color: #ff813f;
+      border-radius: 0.5rem;
+
+      &:hover, &:focus, &:active {
+        background-color: #fc681b;
+      } 
 
       img {
         width: 1.85rem;
