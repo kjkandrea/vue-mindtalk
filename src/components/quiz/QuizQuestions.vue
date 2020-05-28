@@ -3,7 +3,7 @@
       <li v-for="(quiz, index) in items" v-show="index + 1 === step" :key="quiz.quiz_question">
         <span class="question">
           <span>{{index + 1}}.</span>
-          {{quiz.quiz_question}}
+          <div v-html="quiz.quiz_question" />
         </span>
         <quiz-question-items 
           v-bind:parentIndex="index"
