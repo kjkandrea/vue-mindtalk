@@ -1,6 +1,5 @@
 <template>
   <div class="container">
-      {{current}}
       <quiz-core 
         v-bind:id="current"
       />
