@@ -39,7 +39,7 @@ export default {
     }
   },
   mounted(){
-    fetch(`https://mindtalk.shoplic.store/wp-json/menus/v1/menus/primary-menu`)
+    fetch(`${window.projectURL}/wp-json/menus/v1/menus/primary-menu`)
       .then((r) => r.json())
       .then((res) => this.primaryMenu = res.items);
   }

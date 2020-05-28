@@ -141,7 +141,7 @@ export default {
     })
   },
   mounted(){
-    fetch(`https://mindtalk.shoplic.store/wp-json/wp/v2/quiz/${this.id}`)
+    fetch(`${window.projectURL}/wp-json/wp/v2/quiz/${this.id}`)
       .then((r) => r.json())
       .then((res) => this.wpdata = res);
   }
