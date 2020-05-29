@@ -1,7 +1,7 @@
 <template>
   <div class="quizzes-container">
     <template v-if="wpdata.id">
-      <h2>{{wpdata.title.rendered}}</h2>
+      <h1>{{wpdata.title.rendered}}</h1>
       <start-content 
         v-if="intro"
         v-on:introEnd="start" 
@@ -24,9 +24,8 @@
           class="result"
           v-else
           v-on:clickRestart="restart"
-          v-on:clickReser="reset"
-          v-bind:title="resultTitle"
-          v-bind:description="resultDescription"
+          v-on:clickReset="reset"
+          v-bind:resultFinalArray="resultFinalArray"
         />
       </template>
     </template>
@@ -81,7 +80,8 @@ export default {
     return {
       wpdata: [], // 외부(wordpress) 데이터 바인딩
       pickedArray: [], // 고른 항목에 대한 '값' 배열
-      resultIndex: null, // picked에 push될 고른 항목에 대한 '값'
+      resultIndex: [], // picked에 push될 고른 항목에 대한 '값'
+      resultFinalArray: [], // resultArray에서 정제된 결과 값 (가장 많이 선택된 값에 대한 결과 유형 에서만 사용)
       step: 1, // 문제가 몇 단계인지
       intro : true, // false 시 문제 풀기 시작
       finish: false // true 시 문제 풀기 끝
@@ -96,29 +96,20 @@ export default {
 
       return false;
     },
-    resultArray: function() {
+    quizType: function() {
+      return this.wpdata.acf.quiz_type;
+    },
+    resultArray: function() { // 퀴즈 유형에 따라 다른 키에서 데이터를 가져와 배열로 담음
       if(this.wpdata.id !== undefined){
-        if(this.wpdata.acf.quiz_type === 'score'){
+        if(this.quizType === 'score'){
           return this.wpdata.acf.quiz_result_score.quiz_result_items;
-        }else if(this.wpdata.acf.quiz_type === 'match'){
+        }else if(this.quizType === 'match'){
           return this.wpdata.acf.quiz_result_match.quiz_result_items;
         }
       }
 
       return false;
     },
-    resultTitle: function() {
-      if(this.resultIndex !== null){
-        return this.resultArray[this.resultIndex].quiz_result_title;
-      }
-      return false;
-    },
-    resultDescription: function() {
-      if(this.resultIndex !== null){
-        return this.resultArray[this.resultIndex].quiz_result_desc;
-      }
-      return false;
-    }
   },
   methods: {
     result(){
@@ -142,39 +133,51 @@ export default {
       //console.log(sum)
 
       for(let i = 0; i < resultLength; i++){
-          const endResultRange = Number(this.resultArray[i].quiz_result_end_range)
+        const endResultRange = Number(this.resultArray[i].quiz_result_end_range)
 
-          if(endResultRange >= sum){
-            this.resultIndex = i;
+        if(endResultRange >= sum){
+          this.resultIndex.push(i);
 
-            i = resultLength;
-          }
+          i = resultLength;
+        }
       }
+
+      this.resultFinalArrayPush();
     },
     matchCaculator(){ 
       // const testArr = ["a", "a", "b", "b", "c", "d"]
       const resultLength = Object.keys(this.resultArray).length;
       const mostPick = modeArray(this.pickedArray);
-      const OnePick = mostPick[Math.floor(Math.random() * (mostPick.length - 1))]
       
-      console.log(Math.floor(Math.random() * (mostPick - 1)))
-      console.log('신랑'+OnePick);
-
-      for(let i = 0; i < resultLength; i++){
-          const resultMatchValue = this.resultArray[i].quiz_result_match_value
-
-          console.log('신부'+resultMatchValue);
-
-          if(OnePick === resultMatchValue){
-            console.log('드디어 매치가 성사되었다.')
-
-            this.resultIndex = i;
-
-            return
+      if (mostPick.length === 1) { // 결과값이 한가지 일 때
+        for(let i = 0; i < resultLength; i++){
+          const resultMatchValue = this.resultArray[i].quiz_result_match_value;
+          if(mostPick[0] === resultMatchValue){
+            this.resultIndex.push(i);
           }
+        }
+      }else if (mostPick.length >= 2) { // 결과값이 복수 일 때
+        // const randomPick = mostPick[Math.floor(Math.random() * (mostPick.length - 1))]
+        for(let i = 0; i < mostPick.length; i++ ) {
+          for(let j = 0; j < resultLength; j++){
+            const resultMatchValue = this.resultArray[j].quiz_result_match_value
+            if(mostPick[i] === resultMatchValue){
+              this.resultIndex.push(j);
+            }
+          }
+        }
       }
-      
-      console.wran('무언가 잘못되었습니다! : method matchCaculator error')
+
+      this.resultFinalArrayPush();
+    },
+    resultFinalArrayPush(){
+      if(this.quizType === 'score'){
+        this.resultFinalArray.push(this.resultArray[this.resultIndex[0]])
+      }else if(this.quizType === 'match'){
+        for(let i = 0; i < this.resultIndex.length; i++){
+          this.resultFinalArray.push(this.resultArray[this.resultIndex[i]])
+        }
+      }
     },
     nextQuestion(){
       this.step++
@@ -190,12 +193,14 @@ export default {
     },
     restart(){
       this.pickedArray = [];
+      this.resultIndex = [];
+      this.resultFinalArray = [];
       this.step = 1;
       this.finish = false;
     },
     reset(){
+      this.intro = true;
       this.restart();
-      this.start = false;
     }
   },
   created(){
@@ -221,14 +226,11 @@ export default {
     box-sizing: border-box;
     width: 100%;
     max-width: 460px;
-    margin: 0 auto;
+    margin: 20px auto 0;
     padding: 30px;
     background-color: white;
-    @media (min-width:769px){
-      margin-top: 20px;
-    }
 
-    h2 {
+    h1 {
       font-size: 20px;
       font-weight: 500;
       margin: 0 0 20px 0;
