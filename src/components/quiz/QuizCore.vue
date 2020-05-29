@@ -35,6 +35,28 @@
 </template>
 
 <script>
+
+function modeArray(array) { // 가장 많이 선택된 후보군 배열로 반환
+  if (array.length == 0) return null;
+  let modeMap = {}, maxCount = 1, modes = [];
+
+  for (let i = 0; i < array.length; i++) {
+    const el = array[i];
+
+    if (modeMap[el] == null) modeMap[el] = 1;
+    else modeMap[el]++;
+
+    if (modeMap[el] > maxCount) {
+      modes = [el];
+      maxCount = modeMap[el];
+    } else if (modeMap[el] == maxCount) {
+      modes.push(el);
+      maxCount = modeMap[el];
+    }
+  }
+  return modes;
+}
+
 import EventBus from '../../EventBus'
 
 import QuizQuestions from './QuizQuestions.vue'
@@ -76,7 +98,11 @@ export default {
     },
     resultArray: function() {
       if(this.wpdata.id !== undefined){
-        return this.wpdata.acf.quiz_result_score.quiz_result_items;
+        if(this.wpdata.acf.quiz_type === 'score'){
+          return this.wpdata.acf.quiz_result_score.quiz_result_items;
+        }else if(this.wpdata.acf.quiz_type === 'match'){
+          return this.wpdata.acf.quiz_result_match.quiz_result_items;
+        }
       }
 
       return false;
@@ -96,35 +122,74 @@ export default {
   },
   methods: {
     result(){
-      const reducer = (accumulator, currentValue) => accumulator + currentValue;
-      const sum = this.pickedArray.reduce(reducer);
-      const resultLength = Object.keys(this.resultArray).length;
+      if(this.wpdata.acf.quiz_type === 'score'){
+        this.scoreCalculator()
+        this.quizFinish()
+        return
+      }else if(this.wpdata.acf.quiz_type === 'match'){
+        this.matchCaculator()
+        this.quizFinish()
+        return
+      }
+
+      console.warn('무언가 잘못되었습니다! : method result error')
+    },
+    scoreCalculator() {
+      const reducer = (accumulator, currentValue) => Number(accumulator) + Number(currentValue);
+      const sum = this.pickedArray.reduce(reducer); // 숫자형 배열의 총 합
+      const resultLength = Object.keys(this.resultArray).length; // 결과 유형의 갯수
+
+      //console.log(sum)
 
       for(let i = 0; i < resultLength; i++){
-          const endResultRange = Number(this.resultArray[i].quiz_result_end_range);
+          const endResultRange = Number(this.resultArray[i].quiz_result_end_range)
 
           if(endResultRange >= sum){
-            this.resultIndex = Number(i);
+            this.resultIndex = i;
 
             i = resultLength;
           }
       }
+    },
+    matchCaculator(){ 
+      // const testArr = ["a", "a", "b", "b", "c", "d"]
+      const resultLength = Object.keys(this.resultArray).length;
+      const mostPick = modeArray(this.pickedArray);
+      const OnePick = mostPick[Math.floor(Math.random() * (mostPick.length - 1))]
+      
+      console.log(Math.floor(Math.random() * (mostPick - 1)))
+      console.log('신랑'+OnePick);
 
-      this.finish = true;
+      for(let i = 0; i < resultLength; i++){
+          const resultMatchValue = this.resultArray[i].quiz_result_match_value
+
+          console.log('신부'+resultMatchValue);
+
+          if(OnePick === resultMatchValue){
+            console.log('드디어 매치가 성사되었다.')
+
+            this.resultIndex = i;
+
+            return
+          }
+      }
+      
+      console.wran('무언가 잘못되었습니다! : method matchCaculator error')
     },
     nextQuestion(){
       this.step++
     },
     pickedArrayPush(v){
-      this.pickedArray.push(Number(v));
+      this.pickedArray.push(v);
     },
-    start(v){
-      this.intro = v;
+    start(){
+      this.intro = false;
+    },
     quizFinish(){
       this.finish = true;
     },
     restart(){
-      this.picked = [];
+      this.pickedArray = [];
       this.step = 1;
       this.finish = false;
     },
