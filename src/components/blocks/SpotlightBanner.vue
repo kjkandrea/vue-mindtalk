@@ -37,7 +37,7 @@ export default {
   },
   mounted(){
     // Primary 카테고리로 등록된 Quiz 콘텐츠 json 불러오기
-    fetch(`https://mindtalk.shoplic.store/wp-json/wp/v2/quiz?categories=3&_embed`)
+    fetch(`${window.projectURL}/wp-json/wp/v2/quiz?categories=3&_embed`)
       .then((r) => r.json())
       .then((res) => this.wpdata = res)
   }
