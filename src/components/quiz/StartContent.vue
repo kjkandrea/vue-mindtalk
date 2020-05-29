@@ -13,7 +13,7 @@ export default {
   },
   methods: {
     introEnd(){
-      this.$emit('introEnd', false);
+      this.$emit('introEnd');
     }
   }
 }

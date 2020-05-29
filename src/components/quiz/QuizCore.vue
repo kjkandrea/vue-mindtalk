@@ -120,6 +120,8 @@ export default {
     },
     start(v){
       this.intro = v;
+    quizFinish(){
+      this.finish = true;
     },
     restart(){
       this.picked = [];
