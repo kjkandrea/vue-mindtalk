@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div v-html="content"></div>
+    <div class="start-content" v-html="content"></div>
     <button @click="introEnd" class="button-submit">시작하기</button>
   </div>
 </template>
@@ -20,5 +20,9 @@ export default {
 </script>
 
 <style lang="scss">
-
+  .start-content {
+    p {
+      margin-bottom: 1em;
+    }
+  }
 </style>

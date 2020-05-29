@@ -38,10 +38,15 @@ export default {
     color: #666666;
     font-size: 18px;
     line-height: 1.3;
+    word-break: keep-all;
     span {
       position: absolute;
       top: 0;
       left: 0;
+    }
+
+    p{
+      margin-bottom: 1em;
     }
   }
 </style>

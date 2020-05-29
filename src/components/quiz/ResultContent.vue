@@ -29,6 +29,8 @@ export default {
   .result {
     h3 {
       font-size: 20px;
+    h2, h3 {
+      font-size: 1.25rem;
       font-weight: 500;
       margin: 0 0 20px 0;
       padding: 0;

@@ -121,11 +121,15 @@ export default {
 
       h2 {
         position: absolute;
-        bottom: 20px;
-        left: 20px;
+        bottom: 0;
+        left: 0;
         margin: 0;
+        padding: 20px;
         color: white;
         z-index: 2;
+        font-size: 1.285rem;
+        letter-spacing: -0.025em;
+        line-height: 1.4;
         font-weight: 500;
       }
     }
