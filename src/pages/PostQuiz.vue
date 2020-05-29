@@ -1,8 +1,8 @@
 <template>
   <div class="container">
-      <quiz-core 
-        v-bind:id="current"
-      />
+    <quiz-core 
+      v-bind:id="current"
+    />
   </div>
 </template> 
     
@@ -11,7 +11,7 @@
 import QuizCore from '../components/quiz/QuizCore';
 
 export default {
-  name: 'Post',
+  name: 'PostQuiz',
   components: {
     QuizCore
   },
