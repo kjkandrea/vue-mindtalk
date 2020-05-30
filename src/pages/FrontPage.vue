@@ -7,11 +7,13 @@
     
 <script>
 import SpotlightBanner from '../components/blocks/SpotlightBanner'
+import QuizList from '../components/blocks/QuizList'
 
 export default {
   name: 'FrontPage',
   components: {
-    SpotlightBanner
+    SpotlightBanner,
+    QuizList
   }
 }
 </script>
