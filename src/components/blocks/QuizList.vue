@@ -24,6 +24,8 @@
     
 <script>
 
+import isMobile from 'ismobilejs';
+
 import axios from 'axios'
 import LoadingSpinner from '../LoadingSpinner.vue'
 import InfiniteLoading from 'vue-infinite-loading'
@@ -39,6 +41,7 @@ export default {
       executed: false,
       wpdata : [],
       perPage: 2,
+      pageRenge: 2,
       interval : 0
     }
   },
@@ -52,7 +55,7 @@ export default {
               if(response.data.length){
                 this.wpdata = response.data;
                 $state.loaded();
-                this.perPage += 2
+                this.perPage += this.pageRenge
                 if(this.wpdata.length === 10) { // 10개 이상 불러왔으면 로딩 중단.. 
                   $state.complete();
                 }
@@ -60,7 +63,7 @@ export default {
                 $state.complete();
               }
 
-              this.interval = 1000;
+              this.interval = 800;
             }, this.interval);
           })
           .catch(error => {
@@ -72,6 +75,12 @@ export default {
           })
     },
   },
+  created() {
+    if(!isMobile().any){
+      this.perPage = 4
+      this.pageRenge = 4
+    }
+  }
 }
 </script>
 
