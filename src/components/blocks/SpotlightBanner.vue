@@ -32,7 +32,6 @@ export default {
   data() {
     return {
       wpdata : [],
-      wpdataEmbedImageArray: []
     }
   },
   mounted(){
