@@ -1,36 +1,39 @@
 <template>
-  <div class="quizzes-container">
-    <template v-if="executed">
-      <h1>{{wpdata.title.rendered}}</h1>
-      <start-content 
-        v-if="intro"
-        v-on:introEnd="start" 
-        v-bind:content="wpdata.content.rendered" 
-      />
-      <template v-else>
-        <range-counter 
-          v-on:allQuestionFinish="result"
-          v-bind:step="step"
-          v-bind:stepRange="stepRange"
+  <main>
+    <section class="quizzes-container">
+      <template v-if="executed">
+        <h1>{{wpdata.title.rendered}}</h1>
+        <start-content 
+          v-if="intro"
+          v-on:introEnd="start" 
+          v-bind:content="wpdata.content.rendered" 
         />
-        <quiz-questions 
-          v-if="!finish" 
-          v-on:pickedArrayPush="pickedArrayPush"
-          v-on:nextQuestion="nextQuestion"
-          v-bind:step="step"
-          v-bind:items="wpdata.acf.quiz_section"
-        />
-        <result-content 
-          class="result"
-          v-else
-          v-on:clickRestart="restart"
-          v-on:clickReset="reset"
-          v-bind:resultFinalArray="resultFinalArray"
-        />
+        <template v-else>
+          <range-counter 
+            v-on:allQuestionFinish="result"
+            v-bind:step="step"
+            v-bind:stepRange="stepRange"
+          />
+          <quiz-questions 
+            v-if="!finish" 
+            v-on:pickedArrayPush="pickedArrayPush"
+            v-on:nextQuestion="nextQuestion"
+            v-bind:step="step"
+            v-bind:items="wpdata.acf.quiz_section"
+          />
+          <result-content 
+            class="result"
+            v-else
+            v-on:clickRestart="restart"
+            v-on:clickReset="reset"
+            v-bind:resultFinalArray="resultFinalArray"
+          />
+        </template>
       </template>
-    </template>
-    <loading-spinner v-else />
-  </div>
+      <loading-spinner v-else />
+    </section>
+    <aside-quiz-rating-widget />
+  </main>
 </template>
 
 <script>
@@ -59,11 +62,12 @@ function modeArray(array) { // 가장 많이 선택된 후보군 배열로 반�
 import axios from 'axios'
 import EventBus from '../../EventBus'
 
-import QuizQuestions from './QuizQuestions.vue'
-import StartContent from './StartContent.vue'
-import ResultContent from './ResultContent.vue'
-import RangeCounter from './RangeCounter.vue'
-import LoadingSpinner from '../LoadingSpinner.vue'
+import QuizQuestions from './QuizQuestions'
+import StartContent from './StartContent'
+import ResultContent from './ResultContent'
+import RangeCounter from './RangeCounter'
+import LoadingSpinner from '../LoadingSpinner'
+import AsideQuizRatingWidget from '../blocks/AsideQuizRatingWidget';
 
 export default {
   name: 'QuizCore',
@@ -73,13 +77,14 @@ export default {
     StartContent,
     ResultContent,
     RangeCounter,
+    AsideQuizRatingWidget
   },
   props: {
     id : Number && String
   },
   data(){
     return {
-      executed: false,
+      executed: false, // ajax 통신이 완료되었을때 true
       wpdata: null, // 외부(wordpress) 데이터 바인딩
       pickedArray: [], // 고른 항목에 대한 '값' 배열
       resultIndex: [], // picked에 push될 고른 항목에 대한 '값'
@@ -215,11 +220,6 @@ export default {
     })
   },
   mounted(){
-    // fetch(`${window.projectURL}/wp-json/wp/v2/quiz/${this.id}`)
-    //   .then((r) => r.json())
-    //   .then((res) => this.wpdata = res);
-    
-
     axios
         .get(`${window.projectURL}/wp-json/wp/v2/quiz/${this.id}`)
         .then(response => {
