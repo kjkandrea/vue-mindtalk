@@ -18,7 +18,10 @@
     </ul>
     <loading-spinner v-else />
 
-    <infinite-loading @infinite="infiniteHandler" />
+    <infinite-loading @infinite="infiniteHandler">
+      <div slot="spinner"><loading-spinner /></div>
+      <div slot="no-more" class="no-more">더이상 콘텐츠가 없어요 🙄</div>
+    </infinite-loading>
   </section>
 </template> 
     
@@ -97,11 +100,19 @@ export default {
 
     .grid {
       background: #fff;
-      flex-basis: calc(25% - 10px);
+      flex-basis: calc(100% - 10px);
       margin: 5px;
       position: relative;
       overflow: hidden;
       border-radius: 0.25rem;
+
+      @media (min-width: 600px){
+        flex-basis: calc(50% - 10px);
+      }
+
+      @media (min-width: 1030px){
+        flex-basis: calc(25% - 10px);
+      }
 
       .landscape-image {
         position: relative;
@@ -146,5 +157,11 @@ export default {
         word-break: keep-all;
       }
     }
+  }
+
+  .no-more{
+      margin: 20px 0;
+      color: #666;
+      font-size: 0.875rem;
   }
 </style>

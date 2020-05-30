@@ -100,7 +100,11 @@ export default {
         object-fit: cover;
       }
 
-      @media (min-width: 900px){
+      @media (min-width: 600px){
+        width: calc(50% - 10px);
+      }
+
+      @media (min-width: 980px){
         width: calc(50% - 10px);
 
         &:nth-child(n + 3){
