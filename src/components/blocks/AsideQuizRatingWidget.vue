@@ -2,26 +2,30 @@
   <div class="ratings">
     <h2>신규 컨텐츠</h2>
     <ol v-if="executed">
-      <li v-for="(item, index) in wpdata" :key="item.id">
+      <li v-for="(item, index) in wpdata" :key="item.id" class="list">
         <a :href="'/quiz/'+item.id">
           <span class="count">{{index + 1}}.</span>
           <span class="clamp">{{item.title.rendered}}</span>
         </a>
       </li>
     </ol>
-    <loading-spinner v-else />
+    <template v-else>
+      <div class="list"  v-for="n in parseInt(perPage)" :key="n">
+        <loading-placeholder-line />
+      </div>
+    </template>
   </div>
 </template>
     
 <script>
 
 import axios from 'axios'
-import LoadingSpinner from '../LoadingSpinner.vue'
+import LoadingPlaceholderLine from '../loading-animation/LoadingPlaceholderLine.vue'
 
 export default {
   name: 'SiteLogo',
   components: {
-    LoadingSpinner
+    LoadingPlaceholderLine
   },
   data(){
     return {
@@ -43,7 +47,6 @@ export default {
         this.executed = true
       });
   }
-  //http://mindtalk.shoplic.store/wp-json/wp/v2/quiz?per_page=10&_fields=author,id,title,link
 }
 </script>
 
@@ -59,8 +62,15 @@ export default {
       margin: 0 0 20px;
     }
 
-    li {
+    .list {
       border-bottom: 1px solid #e5e5e5;
+
+      &:after {
+        content: '';
+        display: block;
+        clear: both;
+      }
+
       a {
         display: block;
         position: relative;
@@ -86,7 +96,6 @@ export default {
           text-overflow: ellipsis;
           max-height: 1;
         }
-        
       }
     }
   }

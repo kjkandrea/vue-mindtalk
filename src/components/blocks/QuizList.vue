@@ -16,10 +16,13 @@
         <h2>{{item.title.rendered}}</h2>
       </li>
     </ul>
-    <loading-spinner v-else />
 
     <infinite-loading @infinite="infiniteHandler">
-      <div slot="spinner"><loading-spinner /></div>
+      <div slot="spinner">
+        <div class="grids" style="margin-top:0">
+          <loading-placeholder-grid class="grid" v-for="n in parseInt(pageRenge)" :key="n" />
+        </div>
+      </div>
       <div slot="no-more" class="no-more">더이상 콘텐츠가 없어요 🙄</div>
     </infinite-loading>
   </section>
@@ -30,13 +33,13 @@
 import isMobile from 'ismobilejs';
 
 import axios from 'axios'
-import LoadingSpinner from '../LoadingSpinner.vue'
+import LoadingPlaceholderGrid from '../loading-animation/LoadingPlaceholderGrid.vue'
 import InfiniteLoading from 'vue-infinite-loading'
 
 export default {
   name: 'QuizList',
   components: {
-    LoadingSpinner,
+    LoadingPlaceholderGrid,
     InfiniteLoading
   },
   data() {
@@ -66,7 +69,7 @@ export default {
                 $state.complete();
               }
 
-              this.interval = 800;
+              this.interval = 250;
             }, this.interval);
           })
           .catch(error => {
@@ -74,7 +77,6 @@ export default {
           })
           .then(() => {
             this.executed = true;
-            console.log('get')
           })
     },
   },
@@ -92,14 +94,16 @@ export default {
     display: flex;
     flex-wrap: wrap;
     overflow: hidden;
-    margin: 5px -5px 40px;
+    margin: 5px -5px 0;
 
     * {
       box-sizing: border-box;
     }
 
     .grid {
-      background: #fff;
+      &:not(.placeholder) {
+        background: #fff;
+      }
       flex-basis: calc(100% - 10px);
       margin: 5px;
       position: relative;
@@ -151,7 +155,7 @@ export default {
         color: #111;
         z-index: 2;
         font-size: 1.2rem;
-        letter-spacing: -0.025em;
+        letter-spacing: -0.05em;
         line-height: 1.4;
         font-weight: 500;
         word-break: keep-all;

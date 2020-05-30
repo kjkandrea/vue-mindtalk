@@ -4,11 +4,17 @@
       <div class="container">
         <site-logo />
         <nav>
-          <ul if="primaryMenu">
-            <li v-for="item in primaryMenu" :key="item.ID">
-              <!-- :href="'/quiz/'+item.id" -->
-              <router-link :to="item.object+'/'+item.object_id">{{item.title}}</router-link>
-            </li>
+          <ul>
+            <template v-if="executed">
+              <li v-for="item in wpdata" :key="item.ID">
+                <router-link :to="item.object+'/'+item.object_id">{{item.title}}</router-link>
+              </li>
+            </template>
+            <template v-else>
+              <li>
+                <a href="/page/1914">마인드톡 소개</a>
+              </li>
+            </template>
             <li>
               <a class="coffee" href="https://www.buymeacoffee.com/jkkim" target="_blank">
                 <img src="https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg" alt="Buy Me A Coffee" >
@@ -18,11 +24,12 @@
         </nav>
       </div>
     </header>
-    <router-view></router-view>
+    <router-view v-cloak></router-view>
   </div>
 </template>
 
 <script>
+import axios from 'axios'
 
 import router from './routes'
 import SiteLogo from './components/header/SiteLogo'
@@ -35,18 +42,33 @@ export default {
   },
   data() {
     return {
-      primaryMenu: []
+      executed: false,
+      wpdata: null
     }
   },
   mounted(){
-    fetch(`${window.projectURL}/wp-json/menus/v1/menus/primary-menu`)
-      .then((r) => r.json())
-      .then((res) => this.primaryMenu = res.items);
+     axios
+        .get(`${window.projectURL}/wp-json/menus/v1/menus/primary-menu`)
+        .then(response => {
+          this.wpdata = response.data.items;
+        })
+        .catch(error => {
+          console.log(error);
+        })
+        .then(() => {
+          setTimeout(() => {
+            this.executed = true;
+          }, 200)
+        })
   }
 }
 </script>
 
 <style lang="scss">
+  [v-cloak] {
+    display: none;
+  }
+
   body {
     margin: 0;
     background-color: #ebecee;

@@ -16,38 +16,45 @@
         />
       </div>
     </template>
-    <loading-spinner v-else />
+
+    <div v-else>
+      <loading-placeholder class="grid" v-for="n in parseInt(perPage)" :key="n" />
+    </div>
+    
   </div>
 </template> 
     
 <script>
 
 import axios from 'axios'
-import LoadingSpinner from '../LoadingSpinner.vue'
+import LoadingPlaceholder from '../loading-animation/LoadingPlaceholder.vue'
 
 export default {
   name: 'SpotlightBanner',
   components: {
-    LoadingSpinner
+    LoadingPlaceholder
   },
   data() {
     return {
       executed : false,
-      wpdata : null
+      wpdata : null,
+      perPage: 4
     }
   },
   mounted(){
     axios
-        .get(`${window.projectURL}/wp-json/wp/v2/quiz?categories=3&per_page=4&_embed`)
-        .then(response => {
-          this.wpdata =response.data;
-        })
-        .catch(error => {
-          console.log(error);
-        })
-        .then(() => {
-          this.executed = true
-        });
+      .get(`${window.projectURL}/wp-json/wp/v2/quiz?categories=3&per_page=${this.perPage}&_embed`)
+      .then(response => {
+        this.wpdata =response.data;
+      })
+      .catch(error => {
+        console.log(error);
+      })
+      .then(() => {
+        setTimeout(() => {
+            this.executed = true;
+          }, 250)
+      });
   }
   
 }
@@ -64,7 +71,9 @@ export default {
     }
 
     .grid {
-      background: #000;
+      &:not(.placeholder) {
+        background: #000;
+      }
       float: left;
       margin: 5px;
       width: calc(100% - 10px);
@@ -72,6 +81,15 @@ export default {
       overflow: hidden;
       padding: 40px;
       border-radius: 0.25rem;
+
+      .placeholder {
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        z-index: 99;
+      }
 
       &:before {
         content: '';

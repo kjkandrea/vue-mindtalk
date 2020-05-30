@@ -1,6 +1,6 @@
 <template>
   <main>
-    <section class="quizzes-container">
+    <section class="quizzes-container col">
       <template v-if="executed">
         <h1>{{wpdata.title.rendered}}</h1>
         <start-content 
@@ -30,9 +30,14 @@
           />
         </template>
       </template>
-      <loading-spinner v-else />
+      <template v-else>
+        <loading-placeholder-title />
+        <loading-placeholder-grid />
+      </template>
     </section>
-    <aside-quiz-rating-widget />
+    <aside class="col">
+      <aside-quiz-rating-widget />
+    </aside>
   </main>
 </template>
 
@@ -66,18 +71,20 @@ import QuizQuestions from './QuizQuestions'
 import StartContent from './StartContent'
 import ResultContent from './ResultContent'
 import RangeCounter from './RangeCounter'
-import LoadingSpinner from '../LoadingSpinner'
-import AsideQuizRatingWidget from '../blocks/AsideQuizRatingWidget';
+import AsideQuizRatingWidget from '../blocks/AsideQuizRatingWidget'
+import LoadingPlaceholderTitle from '../loading-animation/LoadingPlaceholderTitle'
+import LoadingPlaceholderGrid from '../loading-animation/LoadingPlaceholderGrid'
 
 export default {
   name: 'QuizCore',
   components: {
-    LoadingSpinner,
     QuizQuestions,
     StartContent,
     ResultContent,
     RangeCounter,
-    AsideQuizRatingWidget
+    AsideQuizRatingWidget,
+    LoadingPlaceholderTitle,
+    LoadingPlaceholderGrid
   },
   props: {
     id : Number && String
@@ -221,27 +228,50 @@ export default {
   },
   mounted(){
     axios
-        .get(`${window.projectURL}/wp-json/wp/v2/quiz/${this.id}`)
-        .then(response => {
-          this.wpdata = response.data
-        })
-        .catch(error => {
-          console.log(error);
-        })
-        .then(() => {
+      .get(`${window.projectURL}/wp-json/wp/v2/quiz/${this.id}`)
+      .then(response => {
+        this.wpdata = response.data
+      })
+      .catch(error => {
+        console.log(error);
+      })
+      .then(() => {
+        setTimeout(() => {
           this.executed = true;
-        })
+        }, 200)
+      })
   }
 }
 </script>
 
 <style lang="scss">
+  main{
+    display: flex;
+    flex-wrap: wrap;
+    margin: 0 -10px;
+    .col {
+      flex-basis: calc(100% - 10px);
+      margin: 20px 10px 0;
+    }
+  @media (min-width: 900px) {
+      > .col {
+        min-height: 504px;
+
+        &:nth-child(1) {
+          flex-basis: calc(68% - 20px);
+        }
+
+        &:nth-child(2) {
+          flex-basis: calc(32% - 20px);
+        }
+      }
+    }
+  }
+
   .quizzes-container {
     overflow: hidden;
     box-sizing: border-box;
     width: 100%;
-    max-width: 460px;
-    margin: 20px auto 0;
     padding: 30px;
     background-color: white;
 

@@ -10,6 +10,7 @@
 
 <script>
 import EventBus from '../../EventBus';
+
 export default {
   name: 'QuizQuestionItems',
   props: {
