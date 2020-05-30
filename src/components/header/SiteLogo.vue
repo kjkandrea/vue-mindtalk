@@ -1,7 +1,8 @@
 <template>
   <div class="logo">
-    <a href="/" v-if="logoUrl">
-      <img :src="logoUrl" :width="logoWidth" :height="logoHeight">
+    <a href="/">
+      <img v-if="logoUrl" :src="logoUrl" :width="logoWidth" :height="logoHeight" :alt="this.appName">
+      <img v-else src="../../assets/logo.png" :alt="this.appName">
     </a>
   </div>
 </template>
@@ -15,7 +16,8 @@ export default {
   data(){
     return {
       executed: false,
-      wpdata : []
+      wpdata : [],
+      appName : "마인드톡"
     }
   },
   computed: {
@@ -43,16 +45,18 @@ export default {
   },
   mounted(){
      axios
-        .get(`${window.projectURL}/wp-json/theme_API/v1/get_theme_logo`)
-        .then(response => {
-          this.wpdata = response.data;
-        })
-        .catch(error => {
-          console.log(error);
-        })
-        .then(() => {
+      .get(`${window.projectURL}/wp-json/theme_API/v1/get_theme_logo`)
+      .then(response => {
+        this.wpdata = response.data;
+      })
+      .catch(error => {
+        console.log(error);
+      })
+      .then(() => {
+        setTimeout(() => {
           this.executed = true;
-        })
+        }, 200)
+      })
   }
 }
 </script>
