@@ -17,6 +17,8 @@
       </li>
     </ul>
     <loading-spinner v-else />
+
+    <infinite-loading @infinite="infiniteHandler" />
   </section>
 </template> 
     
@@ -24,19 +26,52 @@
 
 import axios from 'axios'
 import LoadingSpinner from '../LoadingSpinner.vue'
+import InfiniteLoading from 'vue-infinite-loading'
 
 export default {
   name: 'QuizList',
   components: {
     LoadingSpinner,
+    InfiniteLoading
   },
   data() {
     return {
       executed: false,
       wpdata : [],
+      perPage: 2,
+      interval : 0
     }
   },
+  methods: {
+    infiniteHandler($state) {
         axios
+          // .get(`${window.projectURL}/wp-json/wp/v2/quiz?per_page=${this.perPage}&_embed`, {
+          .get(`${window.projectURL}/wp-json/wp/v2/quiz?per_page=${this.perPage}&_embed`)
+          .then(response => {
+            setTimeout(() => {
+              if(response.data.length){
+                this.wpdata = response.data;
+                $state.loaded();
+                this.perPage += 2
+                if(this.wpdata.length === 10) { // 10개 이상 불러왔으면 로딩 중단.. 
+                  $state.complete();
+                }
+              } else {
+                $state.complete();
+              }
+
+              this.interval = 1000;
+            }, this.interval);
+          })
+          .catch(error => {
+            console.log(error);
+          })
+          .then(() => {
+            this.executed = true;
+            console.log('get')
+          })
+    },
+  },
 }
 </script>
 
