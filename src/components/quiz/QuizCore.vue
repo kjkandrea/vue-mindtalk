@@ -1,6 +1,6 @@
 <template>
   <div class="quizzes-container">
-    <template v-if="wpdata.id">
+    <template v-if="executed">
       <h1>{{wpdata.title.rendered}}</h1>
       <start-content 
         v-if="intro"
@@ -56,6 +56,7 @@ function modeArray(array) { // 가장 많이 선택된 후보군 배열로 반�
   return modes;
 }
 
+import axios from 'axios'
 import EventBus from '../../EventBus'
 
 import QuizQuestions from './QuizQuestions.vue'
@@ -78,7 +79,8 @@ export default {
   },
   data(){
     return {
-      wpdata: [], // 외부(wordpress) 데이터 바인딩
+      executed: false,
+      wpdata: null, // 외부(wordpress) 데이터 바인딩
       pickedArray: [], // 고른 항목에 대한 '값' 배열
       resultIndex: [], // picked에 push될 고른 항목에 대한 '값'
       resultFinalArray: [], // resultArray에서 정제된 결과 값 (가장 많이 선택된 값에 대한 결과 유형 에서만 사용)
@@ -213,9 +215,22 @@ export default {
     })
   },
   mounted(){
-    fetch(`${window.projectURL}/wp-json/wp/v2/quiz/${this.id}`)
-      .then((r) => r.json())
-      .then((res) => this.wpdata = res);
+    // fetch(`${window.projectURL}/wp-json/wp/v2/quiz/${this.id}`)
+    //   .then((r) => r.json())
+    //   .then((res) => this.wpdata = res);
+    
+
+    axios
+        .get(`${window.projectURL}/wp-json/wp/v2/quiz/${this.id}`)
+        .then(response => {
+          this.wpdata = response.data
+        })
+        .catch(error => {
+          console.log(error);
+        })
+        .then(() => {
+          this.executed = true;
+        })
   }
 }
 </script>

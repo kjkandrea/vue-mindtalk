@@ -1,6 +1,6 @@
 <template>
   <section>
-    <ul class="grids"  v-if="wpdata">
+    <ul class="grids" v-if="executed">
       <li 
         class="grid"
         v-for="(item) in wpdata" 
@@ -14,7 +14,6 @@
             />
           </div>
         <h2>{{item.title.rendered}}</h2>
-
       </li>
     </ul>
     <loading-spinner v-else />
@@ -23,24 +22,21 @@
     
 <script>
 
+import axios from 'axios'
 import LoadingSpinner from '../LoadingSpinner.vue'
 
 export default {
   name: 'QuizList',
   components: {
-    LoadingSpinner
+    LoadingSpinner,
   },
   data() {
     return {
-      wpdata : []
+      executed: false,
+      wpdata : [],
     }
   },
-  mounted(){
-    fetch(`${window.projectURL}/wp-json/wp/v2/quiz?per_page=8&_embed`)
-      .then((r) => r.json())
-      .then((res) => this.wpdata = res)
-  }
-  
+        axios
 }
 </script>
 
@@ -99,7 +95,7 @@ export default {
         padding: 1rem;
         color: #111;
         z-index: 2;
-        font-size: 1.285rem;
+        font-size: 1.2rem;
         letter-spacing: -0.025em;
         line-height: 1.4;
         font-weight: 500;

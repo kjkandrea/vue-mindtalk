@@ -1,16 +1,20 @@
 <template>
   <div class="logo">
-    <a href="/">
+    <a href="/" v-if="logoUrl">
       <img :src="logoUrl" :width="logoWidth" :height="logoHeight">
     </a>
   </div>
 </template>
     
 <script>
+
+import axios from 'axios'
+
 export default {
   name: 'SiteLogo',
   data(){
     return {
+      executed: false,
       wpdata : []
     }
   },
@@ -38,9 +42,17 @@ export default {
     },
   },
   mounted(){
-    fetch(`${window.projectURL}/wp-json/theme_API/v1/get_theme_logo`)
-      .then((r) => r.json())
-      .then((res) => this.wpdata = res);
+     axios
+        .get(`${window.projectURL}/wp-json/theme_API/v1/get_theme_logo`)
+        .then(response => {
+          this.wpdata = response.data;
+        })
+        .catch(error => {
+          console.log(error);
+        })
+        .then(() => {
+          this.executed = true;
+        })
   }
 }
 </script>
