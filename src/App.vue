@@ -72,6 +72,7 @@ export default {
   body {
     margin: 0;
     background-color: #ebecee;
+    word-break: keep-all;
     button {
       -webkit-appearance: none;
       outline: 0;
@@ -110,6 +111,25 @@ export default {
     overflow-x: hidden;
     max-width: 1030px;
     margin: 0 auto;
+  }
+
+  section h1 {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: #111;
+    border-color: #016afd;
+
+    &:before {
+      content: '';
+      display: inline-block;
+      box-sizing: border-box;
+      border: 0.5rem solid #666;
+      border-color: inherit;
+      width: 1px;
+      height: 1px;
+      border-radius: 50%;
+      margin-right: 0.5rem;
+    }
   }
 
   header {

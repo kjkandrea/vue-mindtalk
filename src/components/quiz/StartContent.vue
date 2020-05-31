@@ -24,5 +24,13 @@ export default {
     p {
       margin-bottom: 1em;
     }
+
+    a {
+      display: block;
+      margin: 2rem 0 1rem;
+      color: #777;
+      text-decoration: none;
+      font-size: 0.9375rem;
+    }
   }
 </style>
