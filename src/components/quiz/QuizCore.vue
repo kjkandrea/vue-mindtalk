@@ -34,7 +34,11 @@
         <loading-placeholder-title />
         <loading-placeholder-grid />
       </template>
+
+      <spotilight-content-grid />
+      <recently-content-grid />
     </section>
+    
     <aside class="col">
       <aside-quiz-rating-widget />
     </aside>
@@ -72,6 +76,8 @@ import StartContent from './StartContent'
 import ResultContent from './ResultContent'
 import RangeCounter from './RangeCounter'
 import AsideQuizRatingWidget from '../blocks/AsideQuizRatingWidget'
+import SpotilightContentGrid from '../blocks/SpotilightContentGrid'
+import RecentlyContentGrid from '../blocks/RecentlyContentGrid'
 import LoadingPlaceholderTitle from '../loading-animation/LoadingPlaceholderTitle'
 import LoadingPlaceholderGrid from '../loading-animation/LoadingPlaceholderGrid'
 
@@ -83,6 +89,8 @@ export default {
     ResultContent,
     RangeCounter,
     AsideQuizRatingWidget,
+    SpotilightContentGrid,
+    RecentlyContentGrid,
     LoadingPlaceholderTitle,
     LoadingPlaceholderGrid
   },

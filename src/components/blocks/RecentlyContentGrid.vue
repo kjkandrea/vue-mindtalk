@@ -18,74 +18,44 @@
       </li>
     </ul>
 
-    <infinite-loading @infinite="infiniteHandler">
-      <div slot="spinner">
-        <div class="grids" style="margin-top:0">
-          <loading-placeholder-grid class="grid" v-for="n in parseInt(pageRenge)" :key="n" />
-        </div>
-      </div>
-      <div slot="no-more" class="no-more">더이상 콘텐츠가 없어요 🙄</div>
-    </infinite-loading>
+    <div v-else class="grids" style="margin-top:0">
+      <loading-placeholder-grid class="grid" v-for="n in parseInt(pageRenge)" :key="n" />
+    </div>
   </section>
 </template> 
     
 <script>
 
-import isMobile from 'ismobilejs';
-
 import axios from 'axios'
 import LoadingPlaceholderGrid from '../loading-animation/LoadingPlaceholderGrid.vue'
-import InfiniteLoading from 'vue-infinite-loading'
 
 export default {
-  name: 'QuizList',
+  name: 'RecentlyContentGrid',
   components: {
-    LoadingPlaceholderGrid,
-    InfiniteLoading
+    LoadingPlaceholderGrid
   },
   data() {
     return {
       executed: false,
       wpdata : [],
-      perPage: 2,
-      pageRenge: 2,
-      interval : 0
+      perPage: 3,
+      pageRenge: 3
     }
   },
-  methods: {
-    infiniteHandler($state) {
-        axios
-          // .get(`${window.projectURL}/wp-json/wp/v2/quiz?per_page=${this.perPage}&_embed`, {
-          .get(`${window.projectURL}/wp-json/wp/v2/quiz?per_page=${this.perPage}&_embed`)
-          .then(response => {
-            setTimeout(() => {
-              if(response.data.length){
-                this.wpdata = response.data;
-                $state.loaded();
-                this.perPage += this.pageRenge
-                if(this.wpdata.length === 10) { // 10개 이상 불러왔으면 로딩 중단.. 
-                  $state.complete();
-                }
-              } else {
-                $state.complete();
-              }
-
-              this.interval = 250;
-            }, this.interval);
-          })
-          .catch(error => {
-            console.log(error);
-          })
-          .then(() => {
+  mounted() {
+    axios
+      .get(`${window.projectURL}/wp-json/wp/v2/quiz?per_page=${this.perPage}&_embed`)
+      .then(response => {
+        this.wpdata =response.data;
+      })
+      .catch(error => {
+        console.log(error);
+      })
+      .then(() => {
+        setTimeout(() => {
             this.executed = true;
-          })
-    },
-  },
-  created() {
-    if(!isMobile().any){
-      this.perPage = 4
-      this.pageRenge = 4
-    }
+          }, 200)
+      });
   }
 }
 </script>
