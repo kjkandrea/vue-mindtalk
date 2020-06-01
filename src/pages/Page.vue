@@ -21,7 +21,7 @@ export default {
     }
   },
   mounted(){
-    fetch(`${window.projectURL}/wp/v2/pages/${this.current}`)
+    fetch(`${window.projectURL}/wp-json/wp/v2/pages/${this.current}`)
       .then((r) => r.json())
       .then((res) => this.wpdata = res);
   }

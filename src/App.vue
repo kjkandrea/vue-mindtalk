@@ -7,7 +7,7 @@
           <ul>
             <template v-if="executed">
               <li v-for="item in wpdata" :key="item.ID">
-                <router-link :to="item.object+'/'+item.object_id">{{item.title}}</router-link>
+                <router-link :to="'/'+item.object+'/'+item.object_id">{{item.title}}</router-link>
               </li>
             </template>
             <template v-else>
