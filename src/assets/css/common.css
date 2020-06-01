@@ -5,6 +5,7 @@ body {
   margin: 0;
   background-color: #ebecee;
   word-break: keep-all;
+  font-family: 'Noto Sans KR',-apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
 }
 body button {
     -webkit-appearance: none;
