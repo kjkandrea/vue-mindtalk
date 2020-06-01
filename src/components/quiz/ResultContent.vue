@@ -64,5 +64,15 @@ export default {
     p {
       margin-bottom: 1em;
     }
+
+    img {
+      max-width: calc(100% + 40px);
+      margin: 0 -20px;
+
+      @media (min-width: 600px) {
+        width: 100%;
+        margin: 0;
+      }
+    }
   }
 </style>

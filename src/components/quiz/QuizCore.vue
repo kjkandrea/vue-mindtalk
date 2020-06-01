@@ -1,39 +1,41 @@
 <template>
   <main>
-    <section class="quizzes-container col">
-      <template v-if="executed">
-        <h1>{{wpdata.title.rendered}}</h1>
-        <start-content 
-          v-if="intro"
-          v-on:introEnd="start" 
-          v-bind:content="wpdata.content.rendered" 
-        />
-        <template v-else>
-          <range-counter 
-            v-on:allQuestionFinish="result"
-            v-bind:step="step"
-            v-bind:stepRange="stepRange"
+    <section class="col">
+      <article class="quizzes-container">
+        <template v-if="executed">
+          <h1>{{wpdata.title.rendered}}</h1>
+          <start-content 
+            v-if="intro"
+            v-on:introEnd="start" 
+            v-bind:content="wpdata.content.rendered" 
           />
-          <quiz-questions 
-            v-if="!finish" 
-            v-on:pickedArrayPush="pickedArrayPush"
-            v-on:nextQuestion="nextQuestion"
-            v-bind:step="step"
-            v-bind:items="wpdata.acf.quiz_section"
-          />
-          <result-content 
-            class="result"
-            v-else
-            v-on:clickRestart="restart"
-            v-on:clickReset="reset"
-            v-bind:resultFinalArray="resultFinalArray"
-          />
+          <template v-else>
+            <range-counter 
+              v-on:allQuestionFinish="result"
+              v-bind:step="step"
+              v-bind:stepRange="stepRange"
+            />
+            <quiz-questions 
+              v-if="!finish" 
+              v-on:pickedArrayPush="pickedArrayPush"
+              v-on:nextQuestion="nextQuestion"
+              v-bind:step="step"
+              v-bind:items="wpdata.acf.quiz_section"
+            />
+            <result-content 
+              class="result"
+              v-else
+              v-on:clickRestart="restart"
+              v-on:clickReset="reset"
+              v-bind:resultFinalArray="resultFinalArray"
+            />
+          </template>
         </template>
-      </template>
-      <template v-else>
-        <loading-placeholder-title />
-        <loading-placeholder-grid />
-      </template>
+        <template v-else>
+          <loading-placeholder-title />
+          <loading-placeholder-grid />
+        </template>
+      </article>
 
       <spotilight-content-grid />
       <recently-content-grid />
@@ -280,8 +282,13 @@ export default {
     overflow: hidden;
     box-sizing: border-box;
     width: 100%;
-    padding: 30px;
+    min-height: 500px;
+    padding: 30px 20px;
     background-color: white;
+
+    @media (min-width:600px) {
+      padding: 30px;
+    }
 
     h1 {
       font-size: 20px;

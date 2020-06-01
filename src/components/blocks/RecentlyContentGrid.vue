@@ -1,6 +1,6 @@
 <template>
-  <section>
-    <h1>최신 심리테스트</h1>
+  <div>
+    <h2 class="sub-title">최신 심리테스트</h2>
     <ul class="grids" v-if="executed">
       <li 
         class="grid"
@@ -14,14 +14,14 @@
               :alt="item._embedded['wp:featuredmedia'][0].media_details.image_meta.caption"
             />
           </div>
-        <h2>{{item.title.rendered}}</h2>
+        <h3>{{item.title.rendered}}</h3>
       </li>
     </ul>
 
     <div v-else class="grids" style="margin-top:0">
       <loading-placeholder-grid class="grid" v-for="n in parseInt(pageRenge)" :key="n" />
     </div>
-  </section>
+  </div>
 </template> 
     
 <script>
@@ -60,7 +60,27 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
+  .sub-title {
+    margin-top: 2rem;
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: #111;
+    border-color: #016afd;
+
+    &:before {
+      content: '';
+      display: inline-block;
+      box-sizing: border-box;
+      border: 0.5rem solid #666;
+      border-color: inherit;
+      width: 1px;
+      height: 1px;
+      border-radius: 50%;
+      margin-right: 0.5rem;
+    }
+  }
+
   .grids{
     display: flex;
     flex-wrap: wrap;
@@ -86,7 +106,7 @@ export default {
       }
 
       @media (min-width: 1030px){
-        flex-basis: calc(25% - 10px);
+        flex-basis: calc(33.3333% - 10px);
       }
 
       .landscape-image {
@@ -120,7 +140,7 @@ export default {
         z-index: 1;
       }
 
-      h2 {
+      h3 {
         margin: 0;
         padding: 1rem;
         color: #111;
