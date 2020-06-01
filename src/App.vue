@@ -71,47 +71,7 @@ export default {
 </script>
 
 <style lang="scss">
-  [v-cloak] {
-    display: none;
-  }
-
-  body {
-    margin: 0;
-    background-color: #ebecee;
-    word-break: keep-all;
-    button {
-      -webkit-appearance: none;
-      outline: 0;
-      margin: 0;
-      padding: 0;
-      border: 0 none;
-      background-color: transparent;
-      cursor: pointer;
-    }
-
-    p {
-      margin: 0;
-    }
-
-    ol, ul, li {
-      list-style: none;
-      margin: 0;
-      padding: 0;
-    }
-
-    img {
-      display: block;
-      max-width: 100%;
-      height: auto;
-      border: 0;
-      margin: 0 auto 1em;
-      padding: 0;
-    }
-  }
-
-  html, body {
-    font-size: 16px;
-  }
+  @import url('./assets/css/common.css');
 
   .container {
     overflow-x: hidden;
@@ -128,7 +88,8 @@ export default {
     &:before {
       content: '';
       display: inline-block;
-      box-sizing: border-box;
+      -webkit-box-sizing: border-box;
+              box-sizing: border-box;
       border: 0.5rem solid #666;
       border-color: inherit;
       width: 1px;
@@ -141,11 +102,18 @@ export default {
   header {
     background-color: #fff;
     > .container {
-      box-sizing: border-box;
+      -webkit-box-sizing: border-box;
+              box-sizing: border-box;
       min-height: 60px;
+      display: -webkit-box;
+      display: -ms-flexbox;
       display: flex;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
       align-items: center;
-      justify-content: space-between;
+      -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+       justify-content: space-between;
       @media (max-width: 1040px) {
         padding: 0 0.5rem;
       }
@@ -153,9 +121,14 @@ export default {
 
     nav {
       ul {
+        display: -webkit-box;
+        display: -ms-flexbox;
         display: flex;
-        flex-wrap: wrap;
-        align-items: center;
+        -ms-flex-wrap: wrap;
+            flex-wrap: wrap;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+                align-items: center;
 
         li{
           a {
@@ -178,9 +151,15 @@ export default {
     }
 
     .coffee {
+      display: -webkit-box;
+      display: -ms-flexbox;
       display: flex;
-      align-items: center;
-      justify-content: center;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+              align-items: center;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+              justify-content: center;
       width: 2.5rem;
       height: 2.5rem;
       background-color: #ff813f;

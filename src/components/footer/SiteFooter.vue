@@ -25,9 +25,15 @@ export default {
     background-color: #fff; 
 
     .container {
+      display: -webkit-box;
+      display: -ms-flexbox;
       display: flex;
-      justify-content: space-between;
-      align-items: center;
+      -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+              justify-content: space-between;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+              align-items: center;
     }
 
     .copy {

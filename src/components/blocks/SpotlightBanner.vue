@@ -66,8 +66,9 @@ export default {
     overflow: hidden;
     margin: 5px -5px 40px;
 
-    * {
-      box-sizing: border-box;
+   * {
+      -webkit-box-sizing: border-box;
+              box-sizing: border-box;
     }
 
     .grid {
@@ -114,8 +115,10 @@ export default {
         width: 100%;
         height: auto;
         margin: 0;
+       -webkit-transform: translateX(-50%) translateY(-50%) translateZ(0);
         transform: translateX(-50%) translateY(-50%) translateZ(0);
-        object-fit: cover;
+        -o-object-fit: cover;
+           object-fit: cover;
       }
 
       @media (min-width: 600px){

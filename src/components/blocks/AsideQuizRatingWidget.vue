@@ -93,7 +93,8 @@ export default {
           display: -webkit-box;
           -webkit-box-orient: vertical;
           -webkit-line-clamp: 1;
-          text-overflow: ellipsis;
+          -o-text-overflow: ellipsis;
+             text-overflow: ellipsis;
           max-height: 1;
         }
       }

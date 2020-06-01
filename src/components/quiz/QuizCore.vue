@@ -256,11 +256,15 @@ export default {
 
 <style lang="scss">
   main{
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
     margin: 0 -10px;
     .col {
-      flex-basis: calc(100% - 10px);
+      -ms-flex-preferred-size: calc(100% - 10px);
+          flex-basis: calc(100% - 10px);
       margin: 20px 10px 0;
     }
   @media (min-width: 900px) {
@@ -268,11 +272,13 @@ export default {
         min-height: 504px;
 
         &:nth-child(1) {
-          flex-basis: calc(68% - 20px);
+          -ms-flex-preferred-size: calc(68% - 20px);
+              flex-basis: calc(68% - 20px);
         }
 
         &:nth-child(2) {
-          flex-basis: calc(32% - 20px);
+          -ms-flex-preferred-size: calc(32% - 20px);
+              flex-basis: calc(32% - 20px);
         }
       }
     }
@@ -280,7 +286,8 @@ export default {
 
   .quizzes-container {
     overflow: hidden;
-    box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+            box-sizing: border-box;
     width: 100%;
     min-height: 500px;
     padding: 30px 20px;

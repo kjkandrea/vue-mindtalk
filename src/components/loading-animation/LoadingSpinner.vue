@@ -24,9 +24,12 @@ export default {
     }
 
     .circular {
+      -webkit-animation: rotate 2s linear infinite;
       animation: rotate 2s linear infinite;
       height: 100%;
-      transform-origin: center center;
+      -webkit-transform-origin: center center;
+      -ms-transform-origin: center center;
+              transform-origin: center center;
       width: 100%;
       position: absolute;
       top: 0;
@@ -37,16 +40,40 @@ export default {
       .path {
         stroke-dasharray: 1, 200;
         stroke-dashoffset: 0;
-        animation: dash 1.5s ease-in-out infinite;
+        -webkit-animation: dash 1.5s ease-in-out infinite;
+                animation: dash 1.5s ease-in-out infinite;
         stroke-linecap: round;
         stroke: #016afd;
       }
     }
   }
 
+  @-webkit-keyframes rotate {
+    100% {
+      -webkit-transform: rotate(360deg);
+              transform: rotate(360deg);
+    }
+  }
+
   @keyframes rotate {
     100% {
-      transform: rotate(360deg);
+      -webkit-transform: rotate(360deg);
+              transform: rotate(360deg);
+    }
+  }
+
+  @-webkit-keyframes dash {
+    0% {
+      stroke-dasharray: 1, 200;
+      stroke-dashoffset: 0;
+    }
+    50% {
+      stroke-dasharray: 89, 200;
+      stroke-dashoffset: -35px;
+    }
+    100% {
+      stroke-dasharray: 89, 200;
+      stroke-dashoffset: -124px;
     }
   }
 

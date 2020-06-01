@@ -1,0 +1,36 @@
+[v-cloak] {
+  display: none;
+}
+body {
+  margin: 0;
+  background-color: #ebecee;
+  word-break: keep-all;
+}
+body button {
+    -webkit-appearance: none;
+    outline: 0;
+    margin: 0;
+    padding: 0;
+    border: 0 none;
+    background-color: transparent;
+    cursor: pointer;
+}
+body p {
+    margin: 0;
+}
+body ol, body ul, body li {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+body img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+    border: 0;
+    margin: 0 auto 1em;
+    padding: 0;
+}
+html, body {
+  font-size: 16px;
+}

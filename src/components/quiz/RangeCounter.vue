@@ -40,7 +40,6 @@ export default {
       width: 100%;
       height: 100%;
       background-color: #016afd;
-      transition: width 250ms;
     }
   }
 </style>

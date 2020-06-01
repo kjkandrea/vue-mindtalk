@@ -71,7 +71,8 @@ export default {
     &:before {
       content: '';
       display: inline-block;
-      box-sizing: border-box;
+      -webkit-box-sizing: border-box;
+              box-sizing: border-box;
       border: 0.5rem solid #666;
       border-color: inherit;
       width: 1px;
@@ -82,19 +83,24 @@ export default {
   }
 
   .grids{
+    display: -webkit-box;
+    display: -ms-flexbox;
     display: flex;
-    flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
     overflow: hidden;
     margin: 5px -5px 0;
 
     * {
-      box-sizing: border-box;
+      -webkit-box-sizing: border-box;
+              box-sizing: border-box;
     }
 
     .grid {
       &:not(.placeholder) {
         background: #fff;
       }
+      -ms-flex-preferred-size: calc(100% - 10px);
       flex-basis: calc(100% - 10px);
       margin: 5px;
       position: relative;
@@ -102,11 +108,13 @@ export default {
       border-radius: 0.25rem;
 
       @media (min-width: 600px){
-        flex-basis: calc(50% - 10px);
+        -ms-flex-preferred-size: calc(50% - 10px);
+            flex-basis: calc(50% - 10px);
       }
 
       @media (min-width: 1030px){
-        flex-basis: calc(33.3333% - 10px);
+        -ms-flex-preferred-size: calc(33.3333% - 10px);
+            flex-basis: calc(33.3333% - 10px);
       }
 
       .landscape-image {
@@ -125,8 +133,10 @@ export default {
           width: auto;
           height: 100%;
           margin: 0;
+          -webkit-transform: translateX(-50%) translateY(-50%) translateZ(0);
           transform: translateX(-50%) translateY(-50%) translateZ(0);
-          object-fit: cover;
+          -o-object-fit: cover;
+             object-fit: cover;
         }
       }
 

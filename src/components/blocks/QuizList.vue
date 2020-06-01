@@ -105,6 +105,7 @@ export default {
       &:not(.placeholder) {
         background: #fff;
       }
+      -ms-flex-preferred-size: calc(100% - 10px);
       flex-basis: calc(100% - 10px);
       margin: 5px;
       position: relative;
@@ -112,11 +113,13 @@ export default {
       border-radius: 0.25rem;
 
       @media (min-width: 600px){
-        flex-basis: calc(50% - 10px);
+        -ms-flex-preferred-size: calc(50% - 10px);
+            flex-basis: calc(50% - 10px);
       }
 
       @media (min-width: 1030px){
-        flex-basis: calc(25% - 10px);
+        -ms-flex-preferred-size: calc(25% - 10px);
+            flex-basis: calc(25% - 10px);
       }
 
       .landscape-image {
@@ -135,8 +138,10 @@ export default {
           width: auto;
           height: 100%;
           margin: 0;
+          -webkit-transform: translateX(-50%) translateY(-50%) translateZ(0);
           transform: translateX(-50%) translateY(-50%) translateZ(0);
-          object-fit: cover;
+          -o-object-fit: cover;
+             object-fit: cover;
         }
       }
 
