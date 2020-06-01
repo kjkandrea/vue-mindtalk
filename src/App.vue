@@ -24,6 +24,7 @@
         </nav>
       </div>
     </header>
+    <notice-bar />
     <router-view v-cloak></router-view>
   </div>
 </template>
@@ -33,12 +34,14 @@ import axios from 'axios'
 
 import router from './routes'
 import SiteLogo from './components/header/SiteLogo'
+import NoticeBar from './components/blocks/NoticeBar'
 
 export default {
   router,
   name: 'App',
   components: {
     SiteLogo,
+    NoticeBar
   },
   data() {
     return {
