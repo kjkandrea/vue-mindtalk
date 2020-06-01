@@ -16,6 +16,11 @@
               </li>
             </template>
             <li>
+              <a class="bug" href="https://github.com/kjkandrea/vue-mindtalk/issues" target="_blank">
+                <img src="https://img.icons8.com/officel/80/000000/bug.png" alt="Bug Report" />
+              </a>
+            </li>
+            <li>
               <a class="coffee" href="https://www.buymeacoffee.com/jkkim" target="_blank">
                 <img src="https://www.buymeacoffee.com/assets/img/BMC-btn-logo.svg" alt="Buy Me A Coffee" >
               </a>
@@ -138,7 +143,7 @@ export default {
             font-weight: 500;
           }
 
-          a:not(.coffee){
+          a:not(.coffee, .bug){
             display: block;
             padding: 0.25rem;
           }
@@ -147,6 +152,31 @@ export default {
         li:nth-child(n + 2){
           margin-left: 1rem;
         }
+      }
+    }
+
+    .bug {
+      display: -webkit-box;
+      display: -ms-flexbox;
+      display: flex;
+      -webkit-box-align: center;
+      -ms-flex-align: center;
+              align-items: center;
+      -webkit-box-pack: center;
+      -ms-flex-pack: center;
+              justify-content: center;
+      width: 2rem;
+      height: 2rem;
+      background-color: #FBC02D;
+      border-radius: 0.5rem;
+
+      &:hover, &:focus, &:active {
+        background-color: #F9A825;
+      } 
+
+      img {
+        width: 1.4rem;
+        margin: 0;
       }
     }
 
@@ -160,8 +190,8 @@ export default {
       -webkit-box-pack: center;
       -ms-flex-pack: center;
               justify-content: center;
-      width: 2.5rem;
-      height: 2.5rem;
+      width: 2rem;
+      height: 2rem;
       background-color: #ff813f;
       border-radius: 0.5rem;
 
@@ -170,7 +200,7 @@ export default {
       } 
 
       img {
-        width: 1.85rem;
+        width: 1.5rem;
         margin: 0;
       }
     }

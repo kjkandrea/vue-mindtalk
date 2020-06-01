@@ -1,9 +1,13 @@
 <template>
   <footer>
     <div class="container">
-      <p class="copy">© 2020 KJK</p>
+      <p class="copy">
+        © 2020 <a href="mailto:kjkandrea@gmail.com">KJK</a>
+         | 
+        <a href="https://icons8.com/icon/vIV5Mr3QA1dV/bug">Bug icon by Icons8</a>
+      </p>
       <a class="git" href="https://github.com/kjkandrea/vue-mind-test" target="_blank">
-        github
+        Github
       </a>
     </div>
   </footer>
@@ -39,6 +43,12 @@ export default {
     .copy {
       color: #666;
       font-size: 0.875rem;
+
+      a {
+        color: #999;
+        font-size: 0.875rem;
+        text-decoration: none;
+      }
     }
 
     .git {
