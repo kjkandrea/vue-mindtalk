@@ -3,10 +3,10 @@
     <h2>신규 컨텐츠</h2>
     <ol v-if="executed">
       <li v-for="(item, index) in wpdata" :key="item.id" class="list">
-        <a :href="'/quiz/'+item.id">
+        <router-link :to="'/quiz/'+item.id">
           <span class="count">{{index + 1}}.</span>
           <span class="clamp">{{item.title.rendered}}</span>
-        </a>
+        </router-link>
       </li>
     </ol>
     <template v-else>
@@ -20,9 +20,11 @@
 <script>
 
 import axios from 'axios'
+import router from '../../routes'
 import LoadingPlaceholderLine from '../loading-animation/LoadingPlaceholderLine.vue'
 
 export default {
+  router,
   name: 'SiteLogo',
   components: {
     LoadingPlaceholderLine

@@ -7,7 +7,7 @@
         v-for="(item) in wpdata" 
         :key="item.id"
       >
-        <a :href="'/quiz/'+item.id"></a>
+        <router-link :to="'/quiz/'+item.id" />
           <div class="landscape-image">
             <img 
               :src="item._embedded['wp:featuredmedia'][0].media_details.sizes.medium_large.source_url" 
@@ -27,9 +27,11 @@
 <script>
 
 import axios from 'axios'
+import router from '../../routes'
 import LoadingPlaceholderGrid from '../loading-animation/LoadingPlaceholderGrid.vue'
 
 export default {
+  router,
   name: 'RecentlyContentGrid',
   components: {
     LoadingPlaceholderGrid

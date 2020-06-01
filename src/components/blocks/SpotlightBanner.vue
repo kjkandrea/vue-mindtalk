@@ -6,9 +6,9 @@
         v-for="(item) in wpdata" 
         :key="item.id"
       >
-        <a :href="'/quiz/'+item.id">
+        <router-link :to="'/quiz/'+item.id">
           <h2>{{item.title.rendered}}</h2>
-        </a>
+        </router-link>
         
         <img 
           :src="item._embedded['wp:featuredmedia'][0].media_details.sizes.medium_large.source_url" 
@@ -27,9 +27,11 @@
 <script>
 
 import axios from 'axios'
+import router from '../../routes'
 import LoadingPlaceholder from '../loading-animation/LoadingPlaceholder.vue'
 
 export default {
+  router,
   name: 'SpotlightBanner',
   components: {
     LoadingPlaceholder

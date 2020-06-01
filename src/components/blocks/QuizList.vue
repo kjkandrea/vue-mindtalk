@@ -7,7 +7,7 @@
         v-for="(item) in wpdata" 
         :key="item.id"
       >
-        <a :href="'/quiz/'+item.id"></a>
+        <router-link :to="'/quiz/'+item.id" />
           <div class="landscape-image">
             <img 
               :src="item._embedded['wp:featuredmedia'][0].media_details.sizes.medium_large.source_url" 
@@ -34,10 +34,12 @@
 import isMobile from 'ismobilejs';
 
 import axios from 'axios'
+import router from '../../routes'
 import LoadingPlaceholderGrid from '../loading-animation/LoadingPlaceholderGrid.vue'
 import InfiniteLoading from 'vue-infinite-loading'
 
 export default {
+  router,
   name: 'QuizList',
   components: {
     LoadingPlaceholderGrid,

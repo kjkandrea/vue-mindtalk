@@ -1,17 +1,18 @@
 <template>
   <div class="logo">
-    <a href="/">
+    <router-link :to="'/'">
       <img v-if="logoUrl" :src="logoUrl" :width="logoWidth" :height="logoHeight" :alt="this.appName">
-      <img v-else src="../../assets/logo.png" :alt="this.appName">
-    </a>
+    </router-link>
   </div>
 </template>
     
 <script>
 
 import axios from 'axios'
+import router from '../../routes'
 
 export default {
+  router,
   name: 'SiteLogo',
   data(){
     return {

@@ -136,6 +136,21 @@ export default {
     },
   },
   methods: {
+    dataFetch() {
+      axios
+        .get(`${window.projectURL}/wp-json/wp/v2/quiz/${this.id}`)
+        .then(response => {
+          this.wpdata = response.data
+        })
+        .catch(error => {
+          console.log(error);
+        })
+        .then(() => {
+          setTimeout(() => {
+            this.executed = true;
+          }, 200)
+        })
+    },
     result(){
       if(this.wpdata.acf.quiz_type === 'score'){
         this.scoreCalculator()
@@ -227,6 +242,12 @@ export default {
       this.restart();
     }
   },
+  watch:{
+    $route (){
+      this.dataFetch()
+      this.reset()
+    }
+  },
   created(){
     EventBus.$on('nextQuestion',() => {
         this.nextQuestion()
@@ -237,19 +258,7 @@ export default {
     })
   },
   mounted(){
-    axios
-      .get(`${window.projectURL}/wp-json/wp/v2/quiz/${this.id}`)
-      .then(response => {
-        this.wpdata = response.data
-      })
-      .catch(error => {
-        console.log(error);
-      })
-      .then(() => {
-        setTimeout(() => {
-          this.executed = true;
-        }, 200)
-      })
+    this.dataFetch()
   }
 }
 </script>
