@@ -50,3 +50,46 @@ html, body {
   left: 0;
   min-width: 100%;
 }
+
+.content {
+  padding: 30px;
+  border-radius: 0.25rem;
+  background-color: #fff;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  color: #111;
+  font-weight: 500;
+}
+
+.content h2, .content h3, .content h4, .content h5, .content h6 {
+  margin-top: 2em;
+}
+
+.content a {
+  color: #016afd;
+  text-decoration: none;
+}
+
+.content ul {
+  margin: 0.5em 0 1em;
+  list-style: none;
+}
+
+.content ul li {
+  position: relative;
+  padding-left: 1rem;
+}
+
+.content ul li:before {
+  content: '-';
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+blockquote {
+  margin: 1rem 0;
+  padding: 0 0 0 1rem;
+  border-left: 2px solid #ebecee  
+}
