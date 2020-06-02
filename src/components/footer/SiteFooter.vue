@@ -22,11 +22,16 @@ export default {
 
 <style lang="scss">
   footer {
+    box-sizing: border-box;
     margin-top: 40px;
-    padding: 20px 0;
+    padding: 20px;
     border-top: 1px solid #ccc;
     border-color: rgba(0, 0, 0, 0.15);
     background-color: #fff; 
+
+    @media (min-width:1030px) {
+      padding: 20px 0;
+    }
 
     .container {
       display: -webkit-box;

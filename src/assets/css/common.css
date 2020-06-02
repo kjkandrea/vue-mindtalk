@@ -32,6 +32,20 @@ body img {
     margin: 0 auto 1em;
     padding: 0;
 }
-html, body {
+html, body, #app {
+  min-height: 100%;
   font-size: 16px;
+}
+
+#app {
+  box-sizing: border-box;
+  position: relative;
+  padding-bottom: 113px;
+}
+
+#app footer {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  min-width: 100%;
 }
