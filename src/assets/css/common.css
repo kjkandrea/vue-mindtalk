@@ -32,12 +32,13 @@ body img {
     margin: 0 auto 1em;
     padding: 0;
 }
-html, body, #app {
-  min-height: 100%;
+html, body {
+  height: 100%;
   font-size: 16px;
 }
 
 #app {
+  min-height: 100%;
   box-sizing: border-box;
   position: relative;
   padding-bottom: 113px;
