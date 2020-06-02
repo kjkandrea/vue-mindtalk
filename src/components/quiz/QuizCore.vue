@@ -250,17 +250,12 @@ export default {
     reset(){
       this.intro = true;
       this.restart();
-    },
-    scrollToTop() {
-      window.scrollTo(0,0);
     }
   },
   watch:{
     $route (){
-      this.scrollToTop()
       this.dataFetch()
       this.reset()
-      console.log('route changed')
     }
   },
   created(){

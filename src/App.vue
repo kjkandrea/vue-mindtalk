@@ -57,6 +57,16 @@ export default {
       wpdata: null
     }
   },
+  methods: {
+    scrollToTop() {
+      window.scrollTo(0,0);
+    }
+  },
+  watch: {
+    $route (){
+      this.scrollToTop()
+    }
+  },
   mounted(){
      axios
         .get(`${window.projectURL}/wp-json/menus/v1/menus/primary-menu`)
