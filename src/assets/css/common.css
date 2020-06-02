@@ -52,9 +52,15 @@ html, body {
 }
 
 .content {
-  padding: 30px;
+  padding: 30px 15px 60px;
   border-radius: 0.25rem;
   background-color: #fff;
+}
+
+@media (min-width: 1030px) {
+  .content {
+    padding: 30px 30px 60px 30px;
+  }
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -62,8 +68,19 @@ h1, h2, h3, h4, h5, h6 {
   font-weight: 500;
 }
 
+.content h1 {
+  margin: 0 0 2em 0;
+  font-size: 1.685rem;
+}
+
 .content h2, .content h3, .content h4, .content h5, .content h6 {
   margin-top: 2em;
+}
+
+.content h1:after, .content h2:after, .content h:after, .content h4:after, .content h5:after, .content h6:after {
+  content: '';
+  padding-top: .25em;
+  border-top: 1px solid #ebecee;
 }
 
 .content a {
