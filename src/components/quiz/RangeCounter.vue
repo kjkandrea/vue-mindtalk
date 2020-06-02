@@ -40,6 +40,9 @@ export default {
       width: 100%;
       height: 100%;
       background-color: #016afd;
+      -webkit-transition: width ease-in-out 250ms;
+      -o-transition: width ease-in-out 250ms;
+      transition: width ease-in-out 250ms;
     }
   }
 </style>
