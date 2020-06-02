@@ -1,7 +1,7 @@
 <template>
   <main>
     <section class="col">
-      <article class="quizzes-container" v-if="!notFound">
+      <article class="quizzes-container" ref="QuizContainer" v-if="!notFound">
         <template v-if="executed">
           <h1>{{wpdata.title.rendered}}</h1>
           <start-content 
@@ -76,6 +76,7 @@ function modeArray(array) { // 가장 많이 선택된 후보군 배열로 반�
 
 import axios from 'axios'
 import EventBus from '../../EventBus'
+import isMobile from 'ismobilejs';
 
 import NotFound from '../../pages/NotFound'
 import QuizQuestions from './QuizQuestions'
@@ -228,6 +229,11 @@ export default {
         }
       }
     },
+    scrollEl(el){
+      const positionTop = el.offsetTop
+
+      window.scrollTo(0, positionTop)
+    },
     nextQuestion(){
       this.step++
     },
@@ -236,9 +242,17 @@ export default {
     },
     start(){
       this.intro = false;
+
+      if(isMobile().any){
+        this.scrollEl(this.$refs.QuizContainer)
+      }
     },
     quizFinish(){
       this.finish = true;
+
+      if(isMobile().any){
+        this.scrollEl(this.$refs.QuizContainer)
+      }
     },
     restart(){
       this.pickedArray = [];
@@ -246,10 +260,18 @@ export default {
       this.resultFinalArray = [];
       this.step = 1;
       this.finish = false;
+
+      if(isMobile().any){
+        this.scrollEl(this.$refs.QuizContainer)
+      }
     },
     reset(){
       this.intro = true;
       this.restart();
+
+      if(isMobile().any){
+        this.scrollEl(this.$refs.QuizContainer)
+      }
     }
   },
   watch:{
