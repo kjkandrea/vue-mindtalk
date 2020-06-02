@@ -2,6 +2,7 @@
 
 ## 프로젝트 소개
 > MindTalk 은 현재 호스팅 되고 있습니다. [mindtalk.shoplic.store](https://mindtalk.shoplic.store/)
+
 이것은 Vue 프레임워크와 Wordpress REST API의 연동을 학습해보기 위한 토이 프로젝트입니다.
 Vue를 통해 모든 기능이 동작하며, Wordpress는 로고, 메뉴, 콘텐츠 등을 관리하는 CMS로 활용합니다.
 Wordpress REST API가 궁금하시다면, [REST API Handbook](https://developer.wordpress.org/rest-api/) 을 살펴보세요.
