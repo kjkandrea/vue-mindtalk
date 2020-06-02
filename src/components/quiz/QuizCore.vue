@@ -29,6 +29,10 @@
               v-on:clickReset="reset"
               v-bind:resultFinalArray="resultFinalArray"
             />
+
+            <result-loader 
+              v-if="resultLoading"
+            />
           </template>
         </template>
         <template v-else>
@@ -81,6 +85,7 @@ import isMobile from 'ismobilejs';
 import NotFound from '../../pages/NotFound'
 import QuizQuestions from './QuizQuestions'
 import StartContent from './StartContent'
+import ResultLoader from './ResultLoader'
 import ResultContent from './ResultContent'
 import RangeCounter from './RangeCounter'
 import AsideQuizRatingWidget from '../blocks/AsideQuizRatingWidget'
@@ -95,6 +100,7 @@ export default {
     NotFound,
     QuizQuestions,
     StartContent,
+    ResultLoader,
     ResultContent,
     RangeCounter,
     AsideQuizRatingWidget,
@@ -113,6 +119,7 @@ export default {
       pickedArray: [], // 고른 항목에 대한 '값' 배열
       resultIndex: [], // picked에 push될 고른 항목에 대한 '값'
       resultFinalArray: [], // resultArray에서 정제된 결과 값 (가장 많이 선택된 값에 대한 결과 유형 에서만 사용)
+      resultLoading: false, // 결과 값 계산 전 로딩에 대한 상태 값 정의
       step: 1, // 문제가 몇 단계인지
       intro : true, // false 시 문제 풀기 시작
       finish: false, // true 시 문제 풀기 끝
@@ -248,11 +255,14 @@ export default {
       }
     },
     quizFinish(){
-      this.finish = true;
-
-      if(isMobile().any){
-        this.scrollEl(this.$refs.QuizContainer)
-      }
+      this.resultLoading = true;
+      setTimeout(() => {
+        this.resultLoading = false;
+        this.finish = true;
+          if(isMobile().any){
+          this.scrollEl(this.$refs.QuizContainer)
+        }
+      }, 4000)
     },
     restart(){
       this.pickedArray = [];
