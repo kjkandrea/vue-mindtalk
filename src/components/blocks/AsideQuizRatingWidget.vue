@@ -10,7 +10,7 @@
       </li>
     </ol>
     <template v-else>
-      <div class="list"  v-for="n in parseInt(perPage)" :key="n">
+      <div class="list" v-for="n in parseInt(perPage)" :key="n">
         <loading-placeholder-line />
       </div>
     </template>

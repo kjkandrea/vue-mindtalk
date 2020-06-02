@@ -49,6 +49,7 @@ export default {
       .get(`${window.projectURL}/wp-json/wp/v2/quiz?categories=3&per_page=${this.perPage}&_embed`)
       .then(response => {
         this.wpdata =response.data;
+        this.executed = false
       })
       .catch(error => {
         console.log(error);
