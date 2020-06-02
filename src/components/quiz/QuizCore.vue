@@ -1,7 +1,7 @@
 <template>
   <main>
     <section class="col">
-      <article class="quizzes-container">
+      <article class="quizzes-container" v-if="!notFound">
         <template v-if="executed">
           <h1>{{wpdata.title.rendered}}</h1>
           <start-content 
@@ -37,6 +37,8 @@
         </template>
       </article>
 
+      <not-found v-else />
+
       <spotilight-content-grid />
       <recently-content-grid />
     </section>
@@ -44,6 +46,8 @@
     <aside class="col">
       <aside-quiz-rating-widget />
     </aside>
+
+    
   </main>
 </template>
 
@@ -73,6 +77,7 @@ function modeArray(array) { // 가장 많이 선택된 후보군 배열로 반�
 import axios from 'axios'
 import EventBus from '../../EventBus'
 
+import NotFound from '../../pages/NotFound'
 import QuizQuestions from './QuizQuestions'
 import StartContent from './StartContent'
 import ResultContent from './ResultContent'
@@ -86,6 +91,7 @@ import LoadingPlaceholderGrid from '../loading-animation/LoadingPlaceholderGrid'
 export default {
   name: 'QuizCore',
   components: {
+    NotFound,
     QuizQuestions,
     StartContent,
     ResultContent,
@@ -108,7 +114,8 @@ export default {
       resultFinalArray: [], // resultArray에서 정제된 결과 값 (가장 많이 선택된 값에 대한 결과 유형 에서만 사용)
       step: 1, // 문제가 몇 단계인지
       intro : true, // false 시 문제 풀기 시작
-      finish: false // true 시 문제 풀기 끝
+      finish: false, // true 시 문제 풀기 끝
+      notFound: false // 해당 퀴즈 콘텐츠를 찾을 수 없을 때
     }
   },
   computed: {
@@ -141,9 +148,12 @@ export default {
         .get(`${window.projectURL}/wp-json/wp/v2/quiz/${this.id}`)
         .then(response => {
           this.wpdata = response.data
+          this.executed = false
+          this.notFound = false
         })
         .catch(error => {
-          console.log(error);
+          this.notFound = true
+          console.log(error)
         })
         .then(() => {
           setTimeout(() => {
@@ -240,12 +250,17 @@ export default {
     reset(){
       this.intro = true;
       this.restart();
+    },
+    scrollToTop() {
+      window.scrollTo(0,0);
     }
   },
   watch:{
     $route (){
+      this.scrollToTop()
       this.dataFetch()
       this.reset()
+      console.log('route changed')
     }
   },
   created(){

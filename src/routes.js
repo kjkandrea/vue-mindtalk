@@ -4,6 +4,7 @@ import FrontPage from './pages/FrontPage';
 import Page from './pages/Page';
 import Post from './pages/Post';
 import PostQuiz from './pages/PostQuiz';
+import NotFound from './pages/NotFound';
 
 Vue.use(VueRouter)
 
@@ -13,6 +14,7 @@ export default new VueRouter({
     { path: '/', component: FrontPage },
     { path: '/page/:id', component: Page },
     { path: '/post/:id', component: Post },
-    { path: '/quiz/:id', component: PostQuiz }
+    { path: '/quiz/:id', component: PostQuiz },
+    { path: '*', component: NotFound }
   ]
 })
